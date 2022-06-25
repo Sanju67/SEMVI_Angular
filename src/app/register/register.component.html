@@ -1,0 +1,113 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+            
+            <p>You are 30 seconds away from applying for the Test!</p>
+            <button type="submit" (click)="onLoginButtonClick('Login')" id="loginbutton">Login</button><br/>
+        </div>
+    
+        <div class="col-md-9 register-right">
+            
+            <div class="buttons">
+                <span class="text-decoration-none">Register As</span>&nbsp;
+                <button type="button" class="btn btn-outline-primary" (click)="showPatient()" [attr.aria-expanded]="isPatient"
+                aria-controls="collapseExample">
+                Patient
+                </button>&nbsp;OR&nbsp;
+                <button type="button" class="btn btn-outline-primary" (click)="showPathologist()" [attr.aria-expanded]="isPathologist"
+                aria-controls="collapseExample">
+                Pathologist
+                </button> 
+                
+            </div>
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isPatient">
+        <h3 class="register-heading">Apply as a Patient</h3>
+        <form method="post" [formGroup]="patientForm" (ngSubmit)="patientformSubmit()">
+                <div class="row register-form">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="firstName" [(ngModel)]="patient.firstName" placeholder="First Name *" value="" />
+                            <span style="color: red;" *ngIf="firstName && firstName.invalid && firstName.touched">Please enter your first name<br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="lastName" [(ngModel)]="patient.lastName" placeholder="Last Name *" value="" />
+                            <span style="color: red;" *ngIf="lastName && lastName.invalid && lastName.touched">Please enter your last name<br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="password" [(ngModel)]="patient.password" placeholder="Password *" value="" />
+                            <span style="color: red;" *ngIf="password && password.invalid && password.touched">Please enter your password<br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="confirmPassword" ngModel placeholder="Confirm Password *" value="" />
+                            <span style="color: red;" *ngIf="confirmPassword && confirmPassword.invalid && confirmPassword.touched">Please enter your password again<br></span>
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="email" class="form-control" formControlName="patientEmail" [(ngModel)]="patient.email" placeholder="Your Email ID *" value="" />
+                            <span style="color: red;" *ngIf="patientEmail && patientEmail.invalid && patientEmail.touched">Please enter valid email id<br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" minlength="10" formControlName="patientContactno" [(ngModel)]="patient.contactno" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Phone Number *" value="" />
+                            <span style="color: red;" *ngIf="patientContactno && patientContactno.invalid && patientContactno.touched">Please enter your contact no. <br></span>
+                        </div>
+                        
+                        <button type="submit" (click)="OnPatientRegisterButtonClick('DashboardPatient')" class="btnRegister">Register</button>
+                        <!-- [disabled]="patientForm.invalid" -->
+                    </div>
+                </div>
+            </form>
+  </div>
+
+  <div #collapse="ngbCollapse" [(ngbCollapse)]="isPathologist">
+       <h3  class="register-heading">Apply as a Pathologist</h3>
+       <form method="post" [formGroup]="pathologistForm" (ngSubmit)="pathologistFormSubmit()">
+                <div class="row register-form">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="owner_name" [(ngModel)]="pathologist.owner_name" placeholder="Owner Name *" value="" />
+                            <span style="color: red;" *ngIf="pathologistOwnerName && pathologistOwnerName.invalid && pathologistOwnerName.touched">Please enter owner name <br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="shop_name" [(ngModel)]="pathologist.shop_name" placeholder="Shop Name *" value="" />
+                            <span style="color: red;" *ngIf="pathologistShopName && pathologistShopName.invalid && pathologistShopName.touched">Please enter your shop name <br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" formControlName="email" [(ngModel)]="pathologist.email" placeholder="Email *" value="" />
+                            <span style="color: red;" *ngIf="pathologistEmail && pathologistEmail.invalid && pathologistEmail.touched">Please enter your email ID. <br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" maxlength="10" formControlName="contact_no" [(ngModel)]="pathologist.contact_no" class="form-control" placeholder="Phone Number *" value="" />
+                            <span style="color: red;" *ngIf="pathologistPhoneNo && pathologistPhoneNo.invalid && pathologistPhoneNo.touched">Please enter your contact no. <br></span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="address" [(ngModel)]="pathologist.address" placeholder="Address *" value="" />
+                            <span style="color: red;" *ngIf="pathologistAddress && pathologistAddress.invalid && pathologistAddress.touched">Please enter Lab address <br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="password" [(ngModel)]="pathologist.password" placeholder="Password *" value="" />
+                            <span style="color: red;" *ngIf="pathologistPassword && pathologistPassword.invalid && pathologistPassword.touched">Please enter your password <br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="pathologistConfirmPassword" ngModel placeholder="Confirm Password *" value="" />
+                            <span style="color: red;" *ngIf="pathologistConfirmPassword && pathologistConfirmPassword.invalid && pathologistConfirmPassword.touched">Please enter your password again. <br></span>
+                        </div>
+                        
+                        <button type="submit" (click)="OnPathologistRegisterButtonClick('DashboardPathologist')" class="btnRegister">Register</button>
+                        <!--  [disabled]="pathologistForm.invalid" -->
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

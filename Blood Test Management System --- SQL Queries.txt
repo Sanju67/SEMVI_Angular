@@ -1,0 +1,129 @@
+==========================================
+CREATING DATABASE AND CREATE TABLE
+
+CREATE DATABASE BTMS_DB;
+use BTMS_DB;
+
+create table patient(
+	patient_id int(10) primary key,
+    firstName varchar(20) not null,
+    lastName varchar(20),
+    email varchar(50) not null,
+    password varchar(10),
+    contact_no varchar(20) not null
+);
+
+drop table patient;
+
+create table pathologist(
+	owner_id int(10) primary key,
+    owner_name varchar(20) not null,
+    shop_name varchar(20) not null,
+    email varchar(50) not null,
+    password varchar(10) not null,
+    contact_no varchar(20) not null,
+    address varchar(50) not null
+);
+
+create table contact_us(
+	cnt_id int(5),
+	name varchar(20),
+	email varchar(20) not null ,
+	contact_no varchar(20) not null,
+	message varchar(100)
+);
+
+create table Test(
+	test_id int(10) primary key,
+    patient_name varchar(20),
+    doctor_name varchar(20),
+    Prescription_file BLOB,
+    contact_no varchar(20) not null,
+    test_location varchar(20),
+    address varchar(100),
+    test_type varchar(20),
+    test_date date
+);
+
+
+create table report(
+	report_no int(10),
+    test_id int(10) ,
+    report_doc BLOB,
+    CONSTRAINT FK_test FOREIGN KEY (test_id) REFERENCES Test(test_id)
+) ;
+
+desc report;
+
+
+=====================================
+INSERTING RECORD INTO TABLES
+------------------------------
+use BTMS_DB;
+
+Contact_us Table :
+
+insert into contact_us values(101,'shailesh','shailesh@gmail.com','9839429804','nice website');
+insert into contact_us values(102,'dilip','dilip@gmail.com','7830432095','Looks good!!');
+insert into contact_us values(103,'shakti','shakti@gmail.com','8757885643','plz help');
+
+Patient Table : 
+
+insert into patient values(1,'arun','vishwakarma','arun@gmail.com','arun@123','9892472328');
+insert into patient values(2,'sakib','khan','sakib@gmail.com','sakib@123','7232898924');
+insert into patient values(3,'vikas','nile','vikas@gmail.com','vikas@123','8794092136');
+
+Pathologist Table : 
+
+insert into pathologist values(11,'shraddha','shraddha lab','shraddha@gmail.com','shrad@123','9213687940','Pune');
+
+insert into pathologist values(22,'pintu','pintu lab','pintu@gmail.com',
+'pintu@123','9879408745','Gwalior');
+
+insert into pathologist values(33,'Dinesh','Dinesh lab','Dinesh@gmail.com','Dine@123','7940894359','Mumbai');
+
+Test Table : 
+    
+insert into test values(1101,'pranita','krishna',('F:\Angular-Project\logo.png'),'9843095424','home','pune',
+'Blood',STR_TO_DATE('14-11-2021', '%d-%m-%Y')) ;
+
+insert into test values(1102,'janice','chandler',('F:\Angular-Project\t1.jpg'),'8970654712','lab','dehu',
+'Blood',STR_TO_DATE('22-11-2021', '%d-%m-%Y')) ;
+    
+insert into test values(1103,'amy','sheldon',('F:\Angular-Project\t2.jpg'),'7865465463','home','pimpri',
+'Blood',STR_TO_DATE('03-12-2021', '%d-%m-%Y')) ;
+    
+Report Table : 
+
+insert into report values(01,1101,('F:\Angular-Project\t1.jpg'));
+insert into report values(02,1102,('F:\Angular-Project\t2.jpg'));
+insert into report values(03,1103,('F:\Angular-Project\t3.jpg'));
+
+    
+------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

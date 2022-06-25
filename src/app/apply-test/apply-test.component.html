@@ -1,0 +1,71 @@
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container apply-test-form border border-info border-3">
+            <div class="apply-test-image rotated ">
+                <img src="../assets/apply-test1.png" alt="rocket_contact"/>
+            </div>
+            
+                
+                
+            <form>
+                <h3>Apply for Blood Test</h3>
+               <div class="row">
+                        <div [formGroup]="applyTestForm" class="form-group form-check-inline">
+                            <label class="col-sm-3 col-form-label"> Patient Name : </label>
+                            <input type="text" name="txtName" class="form-control col-sm-6" formControlName="patientName" ngModel placeholder="Patient Name *" value="" />
+                            <span style="color: red;" *ngIf="patientName && patientName.invalid && patientName.touched">Please enter patient name</span>
+                        </div>
+                        <div [formGroup]="applyTestForm" class=" form-group form-check-inline">
+                            <label class="col-sm-3 col-form-label"> Doctor Name : </label>
+                            <input type="text" name="txtEmail" class="form-control col-sm-6" formControlName="doctorName" ngModel placeholder="Doctor Name *" value="" />
+                            <span style="color: red;" *ngIf="doctorName && doctorName.invalid && doctorName.touched">Please enter valid docter name<br></span>
+                        </div>
+                        <div [formGroup]="applyTestForm" class="form-group form-check-inline">
+                            <label class="col-sm-3 col-form-label">Prescription file : </label>
+                            <input type="file" class="form-control col-sm-6 file" formControlName="prescriptionFile" ngModel id="exampleFormControlFile1">
+                            <span style="color: red;" *ngIf="prescriptionFile && prescriptionFile.invalid && prescriptionFile.touched">Please select file<br></span>
+                          </div>
+                        <div [formGroup]="applyTestForm" class="form-group form-check-inline">
+                            <label class="col-sm-3 col-form-label"> Contact No. : </label>
+                            <input type="text" name="txtPhone" class="form-control col-sm-6" formControlName="contactNo" ngModel  maxlength="10"placeholder="Your Phone Number *" value="" />
+                            <span style="color: red;" *ngIf="contactNo && contactNo.invalid && contactNo.touched">Please enter valid contact number<br></span>
+                        </div>
+                        <div [formGroup]="applyTestForm" class="form-group form-check-inline">
+                            <label class="col-sm-3 col-form-label"> Test Type : </label>
+                            <input type="text" name="txtTesttype" class="form-control col-sm-6" formControlName="testType" ngModel placeholder="Test type *" value="" />
+                            <span style="color: red;" *ngIf="testType && testType.invalid && testType.touched">Please enter valid test type<br></span>
+                        </div>
+                        <div [formGroup]="applyTestForm" class=" form-group form-check-inline">
+                            <label class="col-sm-3 col-form-label"> Date : </label>
+                            <input type="text" name="txtdate" class="form-control col-sm-6" formControlName="testdate" ngModel placeholder="DD/MM/YYYY *" value="" />
+                            <span style="color: red;" *ngIf="testdate && testdate.invalid && testdate.touched">Please enter valid date<br></span>
+                        </div>
+                        <div ngModel class="form-group form-check-inline">
+                            <label class="col-sm-3 col-form-label"> Test Location :  </label>
+                              
+                                <input [value]="1" [(ngModel)]="testLocation" name="testLocation" type="radio" [checked]="isChecked" /> At Home
+
+                              &nbsp;&nbsp;
+                              
+                                <input [value]="0" [(ngModel)]="testLocation" name="testLocation" type="radio" [checked]="!isChecked" /> At Lab
+                              
+                        </div>
+                        <div *ngIf="testLocation == 1">
+                            <textarea name="txtMsg" class="form-control col-sm-10"  formControlName="homeAddress" ngModel placeholder="Your Address *" style="width: 100%; height: 150px;"></textarea><br>
+                            <span style="color: red;" *ngIf="homeAddress && homeAddress.invalid && homeAddress.touched">Please enter valid date<br></span>
+                        </div>
+                        <div *ngIf="testLocation == 0">
+                            <textarea name="txtMsg" class="form-control col-sm-10"  formControlName="labAddress" ngModel placeholder="Sr.no 43/12 , ABC Nirman , Laxman nagar , Thergaon , Pune , Maharashtra , India . " style="width: 100%; height: 150px;"></textarea><br>
+                        </div>
+
+                        <div class="col-6">
+                            <input type="submit" name="btnSubmit" class="btnTest btn-primary" value="Submit form" />
+                        </div>
+      
+                </div>
+            </form>
+</div>

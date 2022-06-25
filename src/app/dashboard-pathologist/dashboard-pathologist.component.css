@@ -1,0 +1,27 @@
+.container{
+    position: relative;
+    margin-top: 10px;
+    
+    border: 10px solid #3F51B5;
+    padding: 10px;
+    padding-left: 20px;
+    padding-top: 20px;
+
+}
+.title{
+    position: relative;
+    margin-top: 100px;
+    margin-left: 100px;
+}
+.btn-outline-info{
+    color: blueviolet;
+}
+
+.table-bordered{
+    border: 2px solid black;
+}
+
+th , tr {
+    border: 1px solid gray;
+    font-size: medium;
+}

@@ -1,0 +1,41 @@
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container contact-form border border-info border-3">
+            <div class="contact-image">
+                <img src="https://image.ibb.co/kUagtU/rocket_contact.png" alt="rocket_contact"/>
+            </div>
+            <form method="post" [formGroup]="contactUsForm" (ngSubmit)="messageSubmit()">
+                <h3>Drop Us a Message</h3>
+               <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <input type="text" name="txtName" formControlName="userName" [(ngModel)]="contactus.name" class="form-control" placeholder="Your Name *" value="" />
+                            <span style="color: red;" *ngIf="userName && userName.invalid && userName.touched">Please enter your name<br></span>
+                            
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="txtEmail" formControlName="userEmail" [(ngModel)]="contactus.email" class="form-control" placeholder="Email *" value="" />
+                            <span style="color: red;" *ngIf="userEmail && userEmail.invalid && userEmail.touched">Please enter valid email id<br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="txtPhone" formControlName="userPhoneNo" [(ngModel)]="contactus.contactno" class="form-control" maxlength="10" placeholder="Phone Number *" value="" />
+                            <span style="color: red;" *ngIf="userPhoneNo && userPhoneNo.invalid && userPhoneNo.touched">Please enter your contact number<br></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="btnSubmit" (click)="OnSendMessageButtonClick()" [disabled]="contactUsForm.invalid" class="btnContact" value="Send Message" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <textarea name="txtMsg" class="form-control" formControlName="userMessage" [(ngModel)]="contactus.message" placeholder="Message *" style="width: 100%; height: 150px;"></textarea>
+                            <span style="color: red;" *ngIf="userMessage && userMessage.invalid && userMessage.touched">Please enter your message<br></span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+</div>
