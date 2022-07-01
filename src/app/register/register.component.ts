@@ -14,6 +14,7 @@ import { PatientService } from '../service/patient.service';
 })
 export class RegisterComponent implements OnInit {
 
+  patientFullName : any ;
   patient : Patient = new Patient("","","","","") ;
   pathologist : Pathologist = new Pathologist ("","","","","","") ;
 
@@ -85,7 +86,7 @@ export class RegisterComponent implements OnInit {
       Validators.maxLength(10)]),
       address : new FormControl('',[Validators.required]),
       password : new FormControl('',[Validators.required]),
-    ConfirmPassword : new FormControl('',[Validators.required]),
+      pathologistConfirmPassword : new FormControl('',[Validators.required]),
     
   })
 
@@ -127,10 +128,15 @@ export class RegisterComponent implements OnInit {
   }
 
   OnPatientRegisterButtonClick(pageName : string) : void{
+    
     let resp = this.patientservice.addPatient(this.patient) ;
     resp.subscribe(data => {
         console.log("patient added successfully ." , data);
     })
+    this.patient.firstName = this.patient.firstName.charAt(0).toUpperCase() + this.patient.firstName.substr(1).toLowerCase() ;
+    this.patient.lastName =  this.patient.lastName.charAt(0).toUpperCase() +  this.patient.lastName.substr(1).toLowerCase() ;
+    this.patientFullName =  this.patient.firstName + " " + this.patient.lastName ;
+    localStorage.setItem("patientUserName",this.patientFullName) ;
     this.router.navigate([`${pageName}`]);
   }
 
@@ -138,7 +144,11 @@ export class RegisterComponent implements OnInit {
     let resp = this.pathologistservice.addPathologist(this.pathologist) ;
     resp.subscribe(data => {
         console.log("pathologist added successfully ." , data);
+       
     })
+    this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.substr(1).toLowerCase() ;
+    localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name) ;
+    this.router.navigate([`/DashboardPathologist`]);
     this.router.navigate([`${pageName}`]);
   }
 

@@ -15,11 +15,17 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   
   }
-  isLoggedIn(): any{
+  isLoggedInPatient(): any{
     return localStorage.getItem('patientUserName') ;
+  }
+
+  isLoggedInPathologist() :any {
+    return localStorage.getItem('pathologistOwnerName') ;
   }
 
   onlogout():any {
     localStorage.removeItem('patientUserName');
+    localStorage.removeItem('pathologistOwnerName');
+    
   }
 }

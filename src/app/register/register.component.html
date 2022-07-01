@@ -98,7 +98,7 @@
                             <span style="color: red;" *ngIf="pathologistPassword && pathologistPassword.invalid && pathologistPassword.touched">Please enter your password <br></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" formControlName="pathologistConfirmPassword" ngModel placeholder="Confirm Password *" value="" />
+                            <input type="password" class="form-control" formControlName="pathologistConfirmPassword" [(ngModel)]="pathologist.pathologistConfirmPassword" placeholder="Confirm Password *" value="" />
                             <span style="color: red;" *ngIf="pathologistConfirmPassword && pathologistConfirmPassword.invalid && pathologistConfirmPassword.touched">Please enter your password again. <br></span>
                         </div>
                         

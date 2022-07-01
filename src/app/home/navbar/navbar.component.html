@@ -35,16 +35,19 @@
           </li>
         </ul>
         <ul class="navbar-nav ms-auto text-center">
-          <li class="nav-item">
+          <li *ngIf="!(isLoggedInPatient() || isLoggedInPathologist())" class="nav-item">
             <a class="nav-link active" aria-current="page" href="http://localhost:4200/Register">Register</a>
           </li>
-          <li *ngIf="!isLoggedIn()" class="nav-item">
+          <li *ngIf="!(isLoggedInPatient() || isLoggedInPathologist())" class="nav-item">
             <a class="nav-link" href="http://localhost:4200/Login">Login</a>
           </li>
-          <li *ngIf="isLoggedIn()" class="nav-item">
+          <li *ngIf="(isLoggedInPatient() || isLoggedInPathologist())" class="nav-item">
             <a class="nav-link" (click)="onlogout()" href="http://localhost:4200/">Logout</a>
           </li>        
+          
+      
         </ul>
+
       </div>
     </div>
   </nav>

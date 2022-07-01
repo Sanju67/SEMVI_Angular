@@ -61,8 +61,7 @@ export class LoginComponent implements OnInit {
           if(array[0]=="Login"){
             console.log("Login returned") ;
             alert("Invalid login credentials ... Please try again") ;
-          } else {
-            
+          } else { 
             this.patient.firstName = array[1].charAt(0).toUpperCase() + array[1].substr(1).toLowerCase() ;
             this.patient.lastName = array[2].charAt(0).toUpperCase() + array[2].substr(1).toLowerCase() ;
             this.userName =  this.patient.firstName + " " + this.patient.lastName ;
