@@ -35,6 +35,8 @@ export class ContactUsComponent implements OnInit {
 
   messageSubmit(){
     console.log(this.contactUsForm.value) ;
+    alert("Thanks for your FeedBack !! ") ;
+    this.contactUsForm.reset();
   }
 
   get userName(){
