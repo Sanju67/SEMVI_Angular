@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup , Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-apply-test',
@@ -8,13 +9,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./apply-test.component.css']
 })
 export class ApplyTestComponent implements OnInit {
-
+ 
   testLocation:any;
   isChecked : boolean = true ;
-
+  static returnedPlan : any ;
+  selectedPlan =ApplyTestComponent.returnedPlan ;
   applyTestForm = new FormGroup({
- patientName : new FormControl('',[Validators.required]),
-   doctorName : new FormControl('',[Validators.required]),
+    patientName : new FormControl('',[Validators.required]),
+    doctorName : new FormControl('',[Validators.required]),
     prescriptionFile : new FormControl('',[Validators.required]),
     contactNo : new FormControl('',[
       Validators.required,
@@ -24,8 +26,6 @@ export class ApplyTestComponent implements OnInit {
     testdate : new FormControl('',[Validators.required]) ,
     homeAddress  : new FormControl('',[Validators.required]) ,
   })
-
-
   
   get patientName(){
     return this.applyTestForm.get('patientName') ;
@@ -58,9 +58,30 @@ export class ApplyTestComponent implements OnInit {
   submitTestForm(){
     console.log("Apply test button was clicked") ;
   }
-  constructor() { }
+  constructor(private router : Router) { }
 
   ngOnInit(): void {
   }
+  OnSelectTestButtonClick(){
+    localStorage.removeItem("planSelected");
+    console.log("select button click");
+    this.router.navigate([`/TestPrice`]); 
+  }
 
+  static onPlanSelected(){
+    console.log("plan selected called");
+    if(localStorage.getItem("planSelected") != undefined){
+      console.log("Before fetching value") ;
+      this.returnedPlan = localStorage.getItem("planSelected");
+      console.log("After fetching value") ;
+      console.log(this.returnedPlan);
+    } else {
+      localStorage.removeItem("planSelected");
+    }
+  }
+
+  isPlanSelected(){
+    return this.selectedPlan ;
+  }
 }
+

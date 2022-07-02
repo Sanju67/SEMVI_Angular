@@ -15,4 +15,9 @@
 }
 .btn-outline-info{
     color: blueviolet;
+    
+}
+.btn-outline-info:hover{
+    background-color: #B9D9EB;
+    
 }

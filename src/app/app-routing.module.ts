@@ -10,6 +10,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { TestPriceComponent } from './test-price/test-price.component';
 
 const routes: Routes = [
   { path : '' , component : HomeComponent} ,
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path : 'contact-us' , component : ContactUsComponent },
   { path : 'ConfirmPassword' , component : ConfirmPasswordComponent} ,
   { path : 'ApplyTest' , component : ApplyTestComponent } , 
-  { path : 'About-Us' , component : AboutUsComponent}
+  { path : 'About-Us' , component : AboutUsComponent},
+  { path : 'TestPrice' , component : TestPriceComponent}
 ];
 
 @NgModule({

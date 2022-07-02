@@ -16,6 +16,7 @@
   <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+ 
     <div class="container-fluid">
       <a class="navbar-brand" href="#"><img src="assets/logo.png" alt="Bootstrap 5" width="48" height="44" class="d-inline-block align-top" /></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,6 +34,10 @@
           <li class="nav-item">
             <a class="nav-link" href="http://localhost:4200/About-Us">About-Us</a>
           </li>
+          <li *ngIf="isLoggedInPatient()" class="nav-item">
+            <a class="nav-link" href="http://localhost:4200/TestPrice">Test Quote</a>
+          </li> 
+
         </ul>
         <ul class="navbar-nav ms-auto text-center">
           <li *ngIf="!(isLoggedInPatient() || isLoggedInPathologist())" class="nav-item">

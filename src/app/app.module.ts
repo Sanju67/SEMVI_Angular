@@ -17,6 +17,7 @@ import { DashboardPathologistComponent } from './dashboard-pathologist/dashboard
 import { NavbarComponent } from './home/navbar/navbar.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { TestPriceComponent } from './test-price/test-price.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     NavbarComponent,
     FooterComponent,
     AboutUsComponent,
+    TestPriceComponent,
   ],
   imports: [
     BrowserModule,
