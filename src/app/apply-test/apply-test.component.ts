@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup , Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Test } from '../class/test';
+import { TestService } from '../service/test.service';
 
+declare var Razorpay : any ;
 @Component({
   selector: 'app-apply-test',
   templateUrl: './apply-test.component.html',
@@ -14,6 +17,9 @@ export class ApplyTestComponent implements OnInit {
   isChecked : boolean = true ;
   static returnedPlan : any ;
   selectedPlan =ApplyTestComponent.returnedPlan ;
+  test : Test = new Test("","",File.prototype,"","","","","");
+
+
   applyTestForm = new FormGroup({
     patientName : new FormControl('',[Validators.required]),
     doctorName : new FormControl('',[Validators.required]),
@@ -24,7 +30,9 @@ export class ApplyTestComponent implements OnInit {
       Validators.minLength(10)]),
     testType : new FormControl('',[Validators.required]),
     testdate : new FormControl('',[Validators.required]) ,
-    homeAddress  : new FormControl('',[Validators.required]) ,
+    testLocation  : new FormControl('',[Validators.required]) ,
+    homeAddress :  new FormControl('') ,
+    labAddress :  new FormControl('') 
   })
   
   get patientName(){
@@ -54,27 +62,39 @@ export class ApplyTestComponent implements OnInit {
   get homeAddress(){
     return this.applyTestForm.get('homeAddress') ;
   }
-
-  submitTestForm(){
-    console.log("Apply test button was clicked") ;
+  get labAddress(){
+    return this.applyTestForm.get('labAddress') ;
   }
-  constructor(private router : Router) { }
+  submitTestForm(){
+    console.log("Address type selected : ",this.applyTestForm.value.testLocation);
+    if(this.applyTestForm.value.testLocation == 1){
+      this.test.testLocation = "Home";
+      this.test.address = this.applyTestForm.value.homeAddress ;
+    } else if(this.applyTestForm.value.testLocation == 0){
+      this.test.testLocation = "LAB";
+      this.test.address = "Sr.no 43/12 , ABC Nirman , Laxman nagar , Thergaon , Pune , Maharashtra , India .";
+    }
+    this.test.testType = this.selectedPlan ;
+    
+    console.log("Test Object value : ",this.test);
+    let resp = this.testService.addNewTest(this.test) ;
+    resp.subscribe(data => {
+        console.log("New test added : ." , data);
+       
+    })
+  }
+  constructor(private testService:TestService ,private router : Router) { }
 
   ngOnInit(): void {
   }
+  
   OnSelectTestButtonClick(){
-    localStorage.removeItem("planSelected");
-    console.log("select button click");
     this.router.navigate([`/TestPrice`]); 
   }
 
   static onPlanSelected(){
-    console.log("plan selected called");
     if(localStorage.getItem("planSelected") != undefined){
-      console.log("Before fetching value") ;
       this.returnedPlan = localStorage.getItem("planSelected");
-      console.log("After fetching value") ;
-      console.log(this.returnedPlan);
     } else {
       localStorage.removeItem("planSelected");
     }
@@ -83,5 +103,6 @@ export class ApplyTestComponent implements OnInit {
   isPlanSelected(){
     return this.selectedPlan ;
   }
+
 }
 

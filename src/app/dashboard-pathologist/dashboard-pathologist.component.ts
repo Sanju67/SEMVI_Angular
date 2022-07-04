@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Pathologist } from '../class/pathologist';
+import { TestService } from '../service/test.service';
 
 @Component({
   selector: 'app-dashboard-pathologist',
@@ -8,12 +10,16 @@ import { Pathologist } from '../class/pathologist';
 })
 export class DashboardPathologistComponent implements OnInit {
 
-  pathologyName="Shraddha Laboratory"
+  allTest : any ;
   pathologist : Pathologist = new Pathologist("","","","","","") ;
   pathologistOwnerName = localStorage.getItem('pathologistOwnerName') ;
-  constructor() { }
+  constructor(private service : TestService , private router : Router) { }
 
   ngOnInit(): void {
+    this.service.getAllRequestTest().subscribe(data=>{
+      this.allTest = data ;
+    });
+    console.log("Value of test data : ",this.allTest);
   }
-
+  
 }

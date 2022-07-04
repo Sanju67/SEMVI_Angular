@@ -1,18 +1,15 @@
 export class Test {
-
-    public test_id! : string ;
-	public patient_name! :string ;
-	public doctor_name! : string ;
-    public prescription_file! : File;
+	public patientName! :string ;
+	public doctorName! : string ;
+    public prescriptionFile! : File;
 	public contactno! : string ; 
-    public test_location! : string ;
+    public testType! : string ;
+    public testDate! : string ;
+    public testLocation! : string;
     public address! : string;
-    public test_type! : string ;
-    public test_date! : string ;
 
-	constructor( test_id : string , patient_name :string , doctor_name : string ,prescription_file : File,
-        contactno :string , test_location : string ,address : string ,
-        test_type : string ,test_date : string) {
+	constructor( patient_name :string , doctor_name : string ,prescription_file : File,
+        contactno :string ,testType : string ,testDate : string , testlocation : string ,address : string) {
 
 	}
 }
