@@ -15,3 +15,15 @@ img{
 p{
     font-size: small;
 }
+.border-3 {
+    border-width:30px !important;
+    position: relative;
+    margin: 40px;
+}
+
+.apply-test-form{
+    background: #fff;
+    width: 70%;
+    margin-left: 200px;
+    padding-left: -30px;
+}
