@@ -70,6 +70,47 @@
                     </table>
                     <br>
                     <h3><p style="color: yellowgreen;">Pending Request  ...</p></h3>
+
+
+                    
+      <!-- <ul>
+        <li *ngFor="let patient of patients"> 
+                {{ patient.id }} , 
+                {{ patient.firstName}} ,
+                {{ patient.lastName }} , 
+                {{ patient.email }}, 
+                {{ patient.password }}
+                {{ patient.contactno}}, 
+        </li>
+    </ul> -->
+                    <table class="table table bordered">
+                      <thead>
+                        <tr>
+                          <th scope="col">Report No</th>
+                          <th scope="col">Patient Name</th>
+                          <th scope="col">Contact No. </th>
+                          <th scope="col">Doctor Name</th>
+                          <th scope="col">Test Type</th>
+                          <th scope="col">Address</th>
+                          <th scope="col">Prescription</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Upload Report</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let test of allRequestedTest">
+                          <th scope="row">{{test.testId}}</th>
+                          <td scope="row">{{test.patientName}}</td>
+                          <td scope="row">{{test.contactno}}</td>
+                          <td scope="row">{{test.doctorName}}</td>
+                          <td scope="row">{{test.testType}}</td>
+                          <td scope="row">{{test.address}}</td>
+                          <td scope="row">{{test.prescriptionFile}}</td>
+                          <td scope="row">{{test.testDate}}</td>
+                          <td scope="row">Pending Request</td>
+                        </tr>
+                    </table>
                     <table class="table table-bordered">
                         <thead>
                             <tr>

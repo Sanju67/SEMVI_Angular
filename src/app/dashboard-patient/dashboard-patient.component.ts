@@ -13,10 +13,10 @@ export class DashboardPatientComponent implements OnInit {
   userName :any ;
   patients : any ;
   patient: Patient = new Patient("","","","","");
-  constructor(private service : PatientService , private router : Router) { }
+  constructor(private patientService : PatientService , private router : Router) { }
 
   ngOnInit(): void {
-    this.service.getPatients().subscribe(data=>{
+    this.patientService.getPatients().subscribe(data=>{
       this.patients = data ;
       this.userName = localStorage.getItem("patientUserName");
     });

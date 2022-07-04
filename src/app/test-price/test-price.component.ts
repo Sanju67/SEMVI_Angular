@@ -17,18 +17,18 @@ export class TestPriceComponent implements OnInit {
   
   OnBasicTestSelected(){
     // console.log('basic inside testprice');
-    localStorage.setItem("planSelected","Basic Blood Test Plan Selected") ;
+    localStorage.setItem("planSelected","Basic Blood Test Plan") ;
     this.navigateToApplyTest();
   }
 
   OnStandardTestSelected(){
     // console.log('standard inside testprice');
-    localStorage.setItem("planSelected","Standard Blood Test Plan Selected") ;
+    localStorage.setItem("planSelected","Standard Blood Test Plan") ;
     this.navigateToApplyTest();
   }
   OnPremiumTestSelected(){
     // console.log('premium inside testprice');
-    localStorage.setItem("planSelected","Premium Blood Test Plan Selected") ;
+    localStorage.setItem("planSelected","Premium Blood Test Plan") ;
     this.navigateToApplyTest();
   }
 

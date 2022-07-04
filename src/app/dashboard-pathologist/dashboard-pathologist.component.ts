@@ -10,16 +10,17 @@ import { TestService } from '../service/test.service';
 })
 export class DashboardPathologistComponent implements OnInit {
 
-  allTest : any ;
+  allRequestedTest : any ;
   pathologist : Pathologist = new Pathologist("","","","","","") ;
   pathologistOwnerName = localStorage.getItem('pathologistOwnerName') ;
   constructor(private service : TestService , private router : Router) { }
 
   ngOnInit(): void {
     this.service.getAllRequestTest().subscribe(data=>{
-      this.allTest = data ;
+      this.allRequestedTest = data ;
+      console.log("Value of test data : ",this.allRequestedTest);
     });
-    console.log("Value of test data : ",this.allTest);
+    
   }
   
 }
