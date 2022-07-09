@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Contactus } from '../class/contactus';
 
 @Injectable({
@@ -8,9 +9,10 @@ import { Contactus } from '../class/contactus';
 })
 export class ContactusService {
 
+  private url: string = `${environment.api_url}`;
   constructor(private http : HttpClient) { }
 
   addFeedback(contactus : Contactus) : Observable<object>{
-    return this.http.post("http://localhost:8080/addFeedback",contactus);
+    return this.http.post(this.url + 'addFeedback',contactus);
 }
 }

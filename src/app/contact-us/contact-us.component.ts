@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup , Validators} from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup , Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Contactus } from '../class/contactus';
@@ -22,15 +22,15 @@ export class ContactUsComponent implements OnInit {
   }
 
 
-   contactUsForm = new FormGroup({
-     userName : new FormControl('',[Validators.required]),
-     userEmail : new FormControl('',[Validators.required,Validators.email]),
-     userPhoneNo : new FormControl('',[
+   contactUsForm = new UntypedFormGroup({
+     userName : new UntypedFormControl('',[Validators.required]),
+     userEmail : new UntypedFormControl('',[Validators.required,Validators.email]),
+     userPhoneNo : new UntypedFormControl('',[
        Validators.required,
        Validators.minLength(10),
        Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'),
        Validators.maxLength(10)]),
-     userMessage : new FormControl('',[Validators.required]),
+     userMessage : new UntypedFormControl('',[Validators.required]),
    })
 
   messageSubmit(){

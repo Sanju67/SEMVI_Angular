@@ -18,6 +18,7 @@ import { NavbarComponent } from './home/navbar/navbar.component';
 import { FooterComponent } from './home/footer/footer.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { TestPriceComponent } from './test-price/test-price.component';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { TestPriceComponent } from './test-price/test-price.component';
     FooterComponent,
     AboutUsComponent,
     TestPriceComponent,
+    OrderComponent,
   ],
   imports: [
     BrowserModule,

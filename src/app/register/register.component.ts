@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup , Validators ,FormsModule , ReactiveFormsModule} from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup , Validators ,FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { Pathologist } from '../class/pathologist';
 import { Patient } from '../class/patient';
@@ -37,13 +37,13 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  patientForm = new FormGroup({
-    firstName : new FormControl('',[Validators.required]),
-    lastName : new FormControl('',[Validators.required]),
-    password : new FormControl('',[Validators.required]),
-    confirmPassword : new FormControl('',[Validators.required]),
-    patientEmail : new FormControl('',[Validators.required,Validators.email]),
-    patientContactno : new FormControl('',[Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
+  patientForm = new UntypedFormGroup({
+    firstName : new UntypedFormControl('',[Validators.required]),
+    lastName : new UntypedFormControl('',[Validators.required]),
+    password : new UntypedFormControl('',[Validators.required]),
+    confirmPassword : new UntypedFormControl('',[Validators.required]),
+    patientEmail : new UntypedFormControl('',[Validators.required,Validators.email]),
+    patientContactno : new UntypedFormControl('',[Validators.required,Validators.minLength(10),Validators.maxLength(10)]),
   })
 
   get firstName(){
@@ -75,18 +75,18 @@ export class RegisterComponent implements OnInit {
     console.log("Patient form submitted") ;
   }
 
-  pathologistForm = new FormGroup({
-    owner_name : new FormControl('',[Validators.required]),
-    shop_name : new FormControl('',[Validators.required]),
-    email : new FormControl('',[Validators.required,Validators.email]),
-    contact_no : new FormControl('',[
+  pathologistForm = new UntypedFormGroup({
+    owner_name : new UntypedFormControl('',[Validators.required]),
+    shop_name : new UntypedFormControl('',[Validators.required]),
+    email : new UntypedFormControl('',[Validators.required,Validators.email]),
+    contact_no : new UntypedFormControl('',[
       Validators.required,
       Validators.minLength(10),
       Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'),
       Validators.maxLength(10)]),
-      address : new FormControl('',[Validators.required]),
-      password : new FormControl('',[Validators.required]),
-      pathologistConfirmPassword : new FormControl('',[Validators.required]),
+      address : new UntypedFormControl('',[Validators.required]),
+      password : new UntypedFormControl('',[Validators.required]),
+      pathologistConfirmPassword : new UntypedFormControl('',[Validators.required]),
     
   })
 

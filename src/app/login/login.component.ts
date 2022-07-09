@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup , Validators} from '@angular/forms';
+import { FormArray, UntypedFormControl, UntypedFormGroup , Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '../class/login';
@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
   
   patient: Patient = new Patient("","","","","");
   pathologist : Pathologist = new Pathologist("","","","","","") ;
-  loginForm = new FormGroup({
-    email : new FormControl('',[Validators.required,Validators.email]),
-    password : new FormControl('',[Validators.required,Validators.minLength(4)]) ,
+  loginForm = new UntypedFormGroup({
+    email : new UntypedFormControl('',[Validators.required,Validators.email]),
+    password : new UntypedFormControl('',[Validators.required,Validators.minLength(4)]) ,
   })
   selectChangeHandler (event: any) {
     //update the ui

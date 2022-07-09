@@ -9,11 +9,13 @@ import { ConfirmPasswordComponent } from './forgot-password/confirm-password/con
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { OrderComponent } from './order/order.component';
 import { RegisterComponent } from './register/register.component';
 import { TestPriceComponent } from './test-price/test-price.component';
 
 const routes: Routes = [
-  { path : '' , component : HomeComponent} ,
+  { path : '' , redirectTo : 'Home' , pathMatch : 'full'} ,
+  { path : 'Home' , component : HomeComponent} ,
   { path : 'Login' , component : LoginComponent} , 
   { path : 'DashboardPatient' , component : DashboardPatientComponent},
   { path : 'DashboardPathologist' , component : DashboardPathologistComponent},
@@ -23,7 +25,8 @@ const routes: Routes = [
   { path : 'ConfirmPassword' , component : ConfirmPasswordComponent} ,
   { path : 'ApplyTest' , component : ApplyTestComponent } , 
   { path : 'About-Us' , component : AboutUsComponent},
-  { path : 'TestPrice' , component : TestPriceComponent}
+  { path : 'TestPrice' , component : TestPriceComponent},
+  { path: 'order', component: OrderComponent },
 ];
 
 @NgModule({

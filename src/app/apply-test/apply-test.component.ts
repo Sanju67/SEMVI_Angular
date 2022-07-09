@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup , Validators} from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup , Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Test } from '../class/test';
 import { TestService } from '../service/test.service';
 
-declare var Razorpay : any ;
 @Component({
   selector: 'app-apply-test',
   templateUrl: './apply-test.component.html',
@@ -17,24 +16,24 @@ export class ApplyTestComponent implements OnInit {
   isChecked : boolean = true ;
   static returnedPlan : any ;
   selectedPlan =ApplyTestComponent.returnedPlan ;
-  test : Test = new Test("","",File.prototype,"","","","","");
+  test : Test = new Test("","",File.prototype,"","","","","","");
 
-
-  applyTestForm = new FormGroup({
-    patientName : new FormControl('',[Validators.required]),
-    doctorName : new FormControl('',[Validators.required]),
-    prescriptionFile : new FormControl('',[Validators.required]),
-    contactNo : new FormControl('',[
+  applyTestForm = new UntypedFormGroup({
+    patientName : new UntypedFormControl('',[Validators.required]),
+    doctorName : new UntypedFormControl('',[Validators.required]),
+    prescriptionFile : new UntypedFormControl('',[Validators.required]),
+    contactNo : new UntypedFormControl('',[
       Validators.required,
       Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'),
       Validators.minLength(10)]),
-    testType : new FormControl('',[Validators.required]),
-    testdate : new FormControl('',[Validators.required]) ,
-    testLocation  : new FormControl('',[Validators.required]) ,
-    homeAddress :  new FormControl('') ,
-    labAddress :  new FormControl('') 
+    testType : new UntypedFormControl('',[Validators.required]),
+    testdate : new UntypedFormControl('',[Validators.required]) ,
+    testLocation  : new UntypedFormControl('',[Validators.required]) ,
+    homeAddress :  new UntypedFormControl('') ,
+    labAddress :  new UntypedFormControl('') 
   })
-  
+
+
   get patientName(){
     return this.applyTestForm.get('patientName') ;
   }
@@ -75,7 +74,7 @@ export class ApplyTestComponent implements OnInit {
       this.test.address = "Sr.no 43/12 , ABC Nirman , Laxman nagar , Thergaon , Pune , Maharashtra , India .";
     }
     this.test.testType = this.selectedPlan ;
-    
+    this.test.testStatus = "Accept";
     console.log("Test Object value : ",this.test);
     let resp = this.testService.addNewTest(this.test) ;
     resp.subscribe(data => {
@@ -104,5 +103,9 @@ export class ApplyTestComponent implements OnInit {
     return this.selectedPlan ;
   }
 
+  onMakePaymentClick(){
+    this.router.navigate([`${'order'}`]);
+    console.log("Make Payment Button Clicked ....");
+  }
 }
 
