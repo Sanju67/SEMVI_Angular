@@ -112,8 +112,8 @@
                           <td scope="row" style="color:green; text-align: center;">Pending</td>
                           <td scope="row">
                             <div class="mb-3">
-                              <input class="form-control form-control-sm" id="formFileSm" type="file">
-                              <button class="btn btn-info" type="button" id="inputGroupFileAddon04">Upload</button>
+                              <input class="form-control form-control-sm"(change)="selectFile($event)" id="formFileSm" type="file">
+                              <button class="btn btn-info" type="button" (click)="upload()" id="inputGroupFileAddon04">Upload</button>
                             </div>
                           </td>
                         </tr>

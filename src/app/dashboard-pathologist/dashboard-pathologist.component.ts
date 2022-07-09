@@ -5,6 +5,7 @@ import { Pathologist } from '../class/pathologist';
 import { DownloadFileService } from '../service/download-file.service';
 import { TestService } from '../service/test.service';
 import { saveAs } from 'file-saver';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-pathologist',
@@ -13,9 +14,13 @@ import { saveAs } from 'file-saver';
 })
 export class DashboardPathologistComponent implements OnInit {
   fileList?: FileData[];
+  selectedFiles?: FileList;
+	currentFile?: File;
   allRequestedTest : any ;
   pathologist : Pathologist = new Pathologist("","","","","","") ;
   pathologistOwnerName = localStorage.getItem('pathologistOwnerName') ;
+
+
   constructor(private service : TestService ,private downloadFileService : DownloadFileService, private router : Router) { }
 
   ngOnInit(): void {
@@ -38,4 +43,25 @@ export class DashboardPathologistComponent implements OnInit {
       .download(fileData.filename)
       .subscribe(blob => saveAs(blob, fileData.filename));
   }
+
+  upload() {
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+    
+      if (file) {
+      this.currentFile = file;
+    
+      this.downloadFileService.upload(this.currentFile).subscribe(
+        (event: any) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          console.log("File uploaded")
+        } 
+        });
+      }
+    }
+  }
+ 
+  selectFile(event: any) {
+    this.selectedFiles = event.target.files;
+    }
 }
