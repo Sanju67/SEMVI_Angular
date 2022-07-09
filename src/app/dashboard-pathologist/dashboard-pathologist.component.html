@@ -25,6 +25,9 @@
                     <span class="glyphicon glyphicon-refresh"></span> Refresh
                   </a><br><br>
                  <h3> <p style="color: lightcoral;">New Request Received ...</p></h3>
+                 <div class="list-group">
+                  <a *ngFor="let fileData of fileList" href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData)">{{fileData.filename}}</a>
+              </div>
                   <br>
                 <div class="col-sm-12">
                     <table class="table table-bordered">
@@ -60,7 +63,7 @@
                                 <td>Dr.Rohit Jadhav</td>
                                 <td>RBC Test</td>
                                 <td>At Lab</td>
-                                <td style="text-align: center;"><button class="btn btn-outline-info"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
+                                <td style="text-align: center;"><button *ngFor="let fileData of fileList" (click)="downloadFile(fileData)" class="btn btn-outline-info"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
                                 <td>19-12-2021</td>
                                 <td><button class="btn btn-outline-info"><i class="fa fa-check-circle" style="color:red"></i>&nbsp;&nbsp;Accept</button></td>
                               </tr>
