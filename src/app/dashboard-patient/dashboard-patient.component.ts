@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import * as saveAs from 'file-saver';
 import { Patient } from '../class/patient';
+import { Report } from '../class/report';
+import { DownloadFileService } from '../service/download-file.service';
 import { PatientService } from '../service/patient.service';
+import { ReportService } from '../service/report.service';
 import { TestService } from '../service/test.service';
 
 @Component({
@@ -15,8 +19,11 @@ export class DashboardPatientComponent implements OnInit {
   currentPatient: any;
   allRequestedTest : any ;
   patients : any ;
-  patient?: Patient;
-  constructor(private patientService : PatientService ,private testService : TestService, private router : Router) { }
+  patient: Patient = new Patient("", "", "", "", "");
+  report?:any;
+  allReports:any ;
+  constructor(private patientService : PatientService ,private testService : TestService, 
+    private reportService : ReportService ,private downloadFileService : DownloadFileService ,private router : Router) { }
 
   ngOnInit(): void {
      this.currentPatient = localStorage.getItem("CurrentPatient") ;
@@ -30,10 +37,33 @@ export class DashboardPatientComponent implements OnInit {
         console.log(this.allRequestedTest) ;
       });
 
+      this.reportService.getAllReport().subscribe(data=>{
+        this.allReports = data ;
+  
+          console.log("All report received : ",this.allReports) ;
+        });
+  
+
   }
 
   onApplyTestButtonClick(pageName : string) : void {
     this.router.navigate([`${pageName}`]);
   }
 
+  downloadReport(report : Report): void{
+    console.log("Inside report file method")
+    this.downloadFileService.download(report.reportFile).subscribe(
+      blob => {
+        return saveAs(blob, report.reportFile);
+      });
+  }
+
+  isReportPresent() : boolean {
+    for(this.report in this.allReports){
+      if(this.report.user_id == this.currentPatient.user_id){
+        return true ; break;
+      }
+    }
+    return false;
+  }
 }

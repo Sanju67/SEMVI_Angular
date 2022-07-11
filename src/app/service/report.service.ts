@@ -17,4 +17,10 @@ export class ReportService {
     console.log("Result after adding report ",result) ;
     return result;
   }
+
+  getAllReport() : Observable<object>{
+    // accept httpClient
+    // import httpCLient in app.module.ts
+    return this.http.get(this.url + "allReports"); 
+  }
 }

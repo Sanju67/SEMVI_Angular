@@ -28,7 +28,6 @@ export class DashboardPathologistComponent implements OnInit {
   returnObject: any;
 
   constructor(private testservice : TestService ,private downloadFileService : DownloadFileService,private reportService : ReportService, private router : Router) { 
-    console.log("Todays date : ",formatDate(new Date(), 'dd/MM/YYYY', 'en'))
   }
 
   ngOnInit(): void {
