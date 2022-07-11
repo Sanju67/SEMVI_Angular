@@ -1,8 +1,11 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup , Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Patient } from '../class/patient';
 import { Test } from '../class/test';
+import { DownloadFileService } from '../service/download-file.service';
 import { TestService } from '../service/test.service';
 
 @Component({
@@ -11,12 +14,17 @@ import { TestService } from '../service/test.service';
   styleUrls: ['./apply-test.component.css']
 })
 export class ApplyTestComponent implements OnInit {
- 
+  
+  currentUser : any ;
+  patient: Patient = new Patient("", "", "", "", "");
+  returnedObject : any ;
   testLocation:any;
   isChecked : boolean = true ;
+  selectedFiles?: FileList;
+	currentFile?: File;
   static returnedPlan : any ;
   selectedPlan =ApplyTestComponent.returnedPlan ;
-  test : Test = new Test("","",File.prototype,"","","","","","");
+  test : Test = new Test("","","","","","","","","");
 
   applyTestForm = new UntypedFormGroup({
     patientName : new UntypedFormControl('',[Validators.required]),
@@ -65,7 +73,6 @@ export class ApplyTestComponent implements OnInit {
     return this.applyTestForm.get('labAddress') ;
   }
   submitTestForm(){
-    console.log("Address type selected : ",this.applyTestForm.value.testLocation);
     if(this.applyTestForm.value.testLocation == 1){
       this.test.testLocation = "Home";
       this.test.address = this.applyTestForm.value.homeAddress ;
@@ -74,17 +81,25 @@ export class ApplyTestComponent implements OnInit {
       this.test.address = "Sr.no 43/12 , ABC Nirman , Laxman nagar , Thergaon , Pune , Maharashtra , India .";
     }
     this.test.testType = this.selectedPlan ;
-    this.test.testStatus = "Accept";
-    console.log("Test Object value : ",this.test);
+    this.test.testStatus = "Pending";
+    this.test.user_id = this.patient.id ;
+    
     let resp = this.testService.addNewTest(this.test) ;
     resp.subscribe(data => {
+      this.returnedObject= data;
+      console.log("filename : ",this.returnedObject['filename']);
+        this.upload(this.returnedObject['filename']);
         console.log("New test added : ." , data);
+        this.router.navigate([`/DashboardPatient`]);
        
     })
   }
-  constructor(private testService:TestService ,private router : Router) { }
+  constructor(private testService:TestService, private downloadFileService : DownloadFileService ,private router : Router) { }
 
   ngOnInit(): void {
+    this.currentUser = localStorage.getItem("CurrentPatient") ;
+    this.patient = JSON.parse(this.currentUser) ;
+    console.log("Current patient id :",this.patient.id);
   }
   
   OnSelectTestButtonClick(){
@@ -106,6 +121,28 @@ export class ApplyTestComponent implements OnInit {
   onMakePaymentClick(){
     this.router.navigate([`${'order'}`]);
     console.log("Make Payment Button Clicked ....");
+  }
+
+  uploadPrescription(event : any){
+    this.selectedFiles = event.target.files;
+    console.log(event.target.files[0].name) ;
+  }
+
+  upload(filename : any) {
+    if (this.selectedFiles) {
+      const file: File | null = this.selectedFiles.item(0);
+    
+      if (file) {
+      this.currentFile = file;
+    
+      this.downloadFileService.upload(this.currentFile,filename).subscribe(
+        (event: any) => {
+        if (event.type === HttpEventType.UploadProgress) {
+          console.log("Prescription file uploaded")
+        } 
+        });
+      }
+    }
   }
 }
 

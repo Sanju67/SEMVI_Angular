@@ -34,7 +34,7 @@
                         
                         <div class="form-group form-check-inline">
                             <label class="col-sm-3 col-form-label">Prescription file : </label>
-                            <input type="file" class="form-control col-sm-6 file" [(ngModel)]="test.prescriptionFile" formControlName="prescriptionFile" id="exampleFormControlFile1">
+                            <input type="file" class="form-control col-sm-6 file" [(ngModel)]="test.prescriptionFile" (change)="uploadPrescription($event)" formControlName="prescriptionFile" id="exampleFormControlFile1">
                             <span style="color: red;" *ngIf="prescriptionFile && prescriptionFile.invalid && prescriptionFile.touched">Please select file<br></span>
                           </div>
                         <div  class="form-group form-check-inline">
@@ -45,7 +45,7 @@
                         
                         <div class=" form-group form-check-inline">
                             <label  class="col-sm-3 col-form-label"> Date : </label>
-                            <input type="text" name="txtdate" class="form-control col-sm-6" [(ngModel)]="test.testDate" formControlName="testdate" placeholder="DD/MM/YYYY *" value="" />
+                            <input type="text" name="txtdate" class="form-control col-sm-6 button.calendar" [(ngModel)]="test.testDate" formControlName="testdate" placeholder="DD/MM/YYYY *" value="" />
                             <span style="color: red;" *ngIf="testdate && testdate.invalid && testdate.touched">Please enter valid date<br></span>
                         </div>
                         <div  class="form-group form-check-inline">

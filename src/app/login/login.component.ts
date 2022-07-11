@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
   userType:any ;
   login : Login = new Login("","") ;
   
-  patient: Patient = new Patient("","","","","");
+  patient: Patient = new Patient("", "", "", "", "");
   pathologist : Pathologist = new Pathologist("","","","","","") ;
   loginForm = new UntypedFormGroup({
     email : new UntypedFormControl('',[Validators.required,Validators.email]),
@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   }
  
   loginUser(){
-    console.log(this.loginForm.value) ;
   }
 
   get email(){
@@ -53,42 +52,33 @@ export class LoginComponent implements OnInit {
 
       let resp = this.patientService.loginUser(this.login) ;
       resp.subscribe(data => {
-          console.log("Login successfully inside login component." , data);
-          
-          let array = data.split(" ",3) ;
-        
-          console.log("Value of array[0]",array[0]);
-          if(array[0]=="Login"){
-            console.log("Login returned") ;
-            alert("Invalid login credentials ... Please try again") ;
+          if(data==""){
+              alert("Invalid login credentials ... Please try again") ;
           } else { 
-            this.patient.firstName = array[1].charAt(0).toUpperCase() + array[1].substr(1).toLowerCase() ;
-            this.patient.lastName = array[2].charAt(0).toUpperCase() + array[2].substr(1).toLowerCase() ;
-            this.userName =  this.patient.firstName + " " + this.patient.lastName ;
-            localStorage.setItem("patientUserName",this.userName) ;
-            this.router.navigate([`${array[0]}`]);
+              this.patient = JSON.parse(data);
+              this.setcurrentPatient(this.patient) ;
+              this.patient.firstName = this.patient.firstName.charAt(0).toUpperCase() + this.patient.firstName.slice(1);
+              this.patient.lastName =  this.patient.lastName.charAt(0).toUpperCase() + this.patient.lastName.slice(1);
+              this.userName =  this.patient.firstName + " " + this.patient.lastName ;
+              localStorage.setItem("CurrentPatient", JSON.stringify(this.patient)) ;
+              localStorage.setItem("patientUserName",this.userName);
+              this.router.navigate([`/DashboardPatient`]);
           }
-          
       });
    }
    else if(this.userType=="pathologist"){
     let resp = this.pathologistService.loginUser(this.login) ;
     resp.subscribe(data => {
-        console.log("Login successfully inside login component." , data);
-        console.log(data) ;
-        let array = data.split(" ",3) ;
-       
-        console.log("Value of array[0]",array[0]);
-        if(array[0]=="Login"){
-          console.log("Login returned") ;
+        if(data==""){
           alert("Invalid login credentials ... Please try again") ;
         } else {
-          this.pathologist.owner_name = array[1].charAt(0).toUpperCase() + array[1].substr(1).toLowerCase() ;
-          localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name) ;
-          this.router.navigate([`/DashboardPathologist`]);
-        }
-        // this.router.navigate([`${array[0]}`]);
-        
+           this.pathologist = JSON.parse(data);
+           this.setcurrentPathologist(this.pathologist)
+            this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.slice(1);
+            localStorage.setItem("CurrentPathologist",data) ;
+            localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name );
+            this.router.navigate([`/DashboardPathologist`]);
+        }  
     });
 
    }
@@ -99,6 +89,13 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit(): void {
     
+  }
+
+  setcurrentPatient (patient : Patient) : void {
+    this.patient = patient ;
+  }
+  setcurrentPathologist (pathologist : Pathologist) : void {
+    this.pathologist = pathologist ;
   }
 
 }

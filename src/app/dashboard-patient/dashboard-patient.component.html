@@ -26,13 +26,39 @@
                 {{ patient.contactno}}, 
         </li>
     </ul> -->
-   
+
         <div class="row gap-2">
             <div class="col sm-3">
                 <button class="btn btn-outline-info"  (click)="onApplyTestButtonClick('ApplyTest')"><i class="fa fa-plus-circle"></i>  Apply for New Test</button><br><br>
+               
+                <a href="#"> Pending Requests :</a> <br><br>
+                <h3 *ngIf="allRequestedTest == null"> No Pending Request .... </h3>
+                <div class="col-sm-10" *ngIf="allRequestedTest != null ">
+                    <table class="table table-bordered table-hover table-sm">
+                      <thead class="thead-dark">
+                        <tr>
+                          <th scope="col">Test ID</th>
+                          <th scope="col">Patient Name</th>
+                          <th scope="col">Test Type</th>
+                          <th scope="col">Test Date</th>
+                          <th scope="col">Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let test of allRequestedTest">
+                          <td scope="row">{{test.test_id}}</td>
+                          <td scope="row">{{test.patientName}}</td>
+                          <td scope="row">{{test.testType}}</td>
+                          <td scope="row">{{test.testDate}}</td>
+                          <td scope="row">{{test.testStatus}}</td>
+                        </tr>
+                    </table>
+                </div>
+               
+               
                 <a href="#"> View Reports :</a> <br><br>
                 <div class="col-sm-10">
-                    <table class="table table-bordered border-primary">
+                    <table class="table table-bordered table-hover table-sm">
                         <thead>
                             <tr>
                               <th scope="col">Report No</th>

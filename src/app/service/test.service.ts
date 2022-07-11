@@ -19,8 +19,13 @@ export class TestService {
   }
   addNewTest(test : Test) : Observable<object>{
     console.log("test service called : ");
-    const result = this.http.post(this.url + "addNewTest",test); ;
+    const result = this.http.post(this.url + "addNewTest",test);
     console.log("After calling api",result) ;
-    return this.http.post(this.url + "addNewTest",test);
-}
+    return result;
+  }
+
+  updateStatus(test : Test) : Observable<object>{
+    const result = this.http.post(this.url + "updateStatus",test);
+    return result ;
+  }
 }

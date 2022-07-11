@@ -24,16 +24,17 @@
                 <a href="#" class="btn btn-info">
                     <span class="glyphicon glyphicon-refresh"></span> Refresh
                   </a><br><br>
-                 <h3> <p style="color: lightcoral;">New Request Received ...</p></h3>
+                 <h3 *ngIf="!allRequestedTest"> <p style="color: lightcoral;">New Request Received ...</p></h3>
                  <div class="list-group">
-                  <a *ngFor="let fileData of fileList" href="#" class="list-group-item list-group-item-action" (click)="downloadFile(fileData)">{{fileData.filename}}</a>
               </div>
-                  <br>
+                  
                 <div class="col-sm-12">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                              <th scope="col">Report No</th>
+                  <h3 *ngIf="allRequestedTest " style="color: lightcoral;"> No Test Request Pending .... </h3>
+                  <table class="table table-bordered table-hover table-sm">
+                    <thead class="thead-dark">
+                      
+                            <tr *ngIf="!allRequestedTest">
+                              <th scope="col">Test ID</th>
                               <th scope="col">Patient Name</th>
                               <th scope="col">Contact No. </th>
                               <th scope="col">Doctor Name</th>
@@ -41,53 +42,31 @@
                               <th scope="col">Address</th>
                               <th scope="col">Prescription</th>
                               <th scope="col">Date</th>
-                              <th scope="col">Accept</th>
+                              <th scope="col">Status</th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>Julie</td>
-                              <td>8247294759</td>
-                              <td>Dr.Krishna Jamdar</td>
-                              <td>Blood</td>
-                              <td>At Home</td>
-                              <td style="text-align: center;"><button class="btn btn-outline-info"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
-                              <td>14-12-2021</td>
-                              <td><button class="btn btn-outline-info"><i class="fa fa-check-circle" style="color:red"></i>&nbsp;&nbsp;Accept</button></td>
+                          <tbody *ngFor="let test of allRequestedTest" >
+                              <tr *ngIf="test.testStatus== 'Pending'">
+                                <td scope="row">{{test.test_id}}</td>
+                                <td scope="row">{{test.patientName}}</td>
+                                <td scope="row">{{test.contactno}}</td>
+                                <td scope="row">{{test.doctorName}}</td>
+                                <td scope="row">{{test.testType}}</td>
+                                <td scope="row">{{test.address}}</td>
+                                <td style="text-align: center;"><button class="btn btn-outline-info" (click)="downloadFile(test)"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
+                                <td scope="row">{{test.testDate}}</td>
+                              <td><button class="btn btn-outline-info" (click)="acceptStatus(test)"><i class="fa fa-check-circle" style="color:red"></i>&nbsp;&nbsp;Accept</button></td>
                             </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Alex</td>
-                                <td>9942485944</td>
-                                <td>Dr.Rohit Jadhav</td>
-                                <td>RBC Test</td>
-                                <td>At Lab</td>
-                                <td style="text-align: center;"><button *ngFor="let fileData of fileList" (click)="downloadFile(fileData)" class="btn btn-outline-info"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
-                                <td>19-12-2021</td>
-                                <td><button class="btn btn-outline-info"><i class="fa fa-check-circle" style="color:red"></i>&nbsp;&nbsp;Accept</button></td>
-                              </tr>
-                            <tr>
-                            </tr>
+                           
                           </tbody>
                     </table>
                     <br>
                     <h3><p style="color: yellowgreen;">Pending Request  ...</p></h3>
 
-      <!-- <ul>
-        <li *ngFor="let patient of patients"> 
-                {{ patient.id }} , 
-                {{ patient.firstName}} ,
-                {{ patient.lastName }} , 
-                {{ patient.email }}, 
-                {{ patient.password }}
-                {{ patient.contactno}}, 
-        </li>
-    </ul> -->
                     <table class="table table-bordered table-hover table-sm">
                       <thead class="thead-dark">
                         <tr>
-                          <th scope="col">Report No</th>
+                          <th scope="col">Test ID</th>
                           <th scope="col">Patient Name</th>
                           <th scope="col">Contact No. </th>
                           <th scope="col">Doctor Name</th>
@@ -99,8 +78,8 @@
                           <th scope="col">Upload Report</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr *ngFor="let test of allRequestedTest">
+                      <tbody *ngFor="let test of allRequestedTest">
+                        <tr *ngIf="test.testStatus== 'Accepted'">
                           <td scope="row">{{test.test_id}}</td>
                           <td scope="row">{{test.patientName}}</td>
                           <td scope="row">{{test.contactno}}</td>
@@ -109,71 +88,43 @@
                           <td scope="row">{{test.address}}</td>
                           <td scope="row"><button class="btn btn-outline-info"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
                           <td scope="row">{{test.testDate}}</td>
-                          <td scope="row" style="color:green; text-align: center;">Pending</td>
+                          <td scope="row" style="color:green; text-align: center;">{{test.testStatus}}</td>
                           <td scope="row">
                             <div class="mb-3">
-                              <input class="form-control form-control-sm"(change)="selectFile($event)" id="formFileSm" type="file">
-                              <button class="btn btn-info" type="button" (click)="upload()" id="inputGroupFileAddon04">Upload</button>
+                              <input class="form-control form-control-sm"(change)="selectReport($event)" id="formFileSm" type="file">
+                              <button class="btn btn-info" type="button" (click)="uploadReport(test)" id="inputGroupFileAddon04">Upload</button>
                             </div>
                           </td>
                         </tr>
                     </table>
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                              <th scope="col">Report No</th>
-                              <th scope="col">Patient Name</th>
-                              <th scope="col">Contact No. </th>
-                              <th scope="col">Doctor Name</th>
-                              <th scope="col">Test Type</th>
-                              <th scope="col">Address</th>
-                              <th scope="col">Prescription</th>
-                              <th scope="col">Date</th>
-                              <th scope="col">Status</th>
-                              <th scope="col">Upload Report</th>
-
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <th scope="row">1</th>
-                              <td>Amy</td>
-                              <td>9843489524</td>
-                              <td>Dr.Sheldon Cooper</td>
-                              <td>Blood</td>
-                              <td>At Home</td>
-                              <td style="text-align: center;"><button class="btn btn-outline-info"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
-                              <td>14-12-2021</td>
-                              <td><p style="color:green; text-align: center;"> Pending</p></td>
-                              <td> <div class="mb-1">
-                                <input class="form-control form-control-sm" id="formFileSm" type="file">
-                                <button class="btn btn-info" type="button" id="inputGroupFileAddon04">Upload</button>
-
-                              </div></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Janice</td>
-                                <td>7693402484</td>
-                                <td>Dr.Chandler Bing</td>
-                                <td>RBC Test</td>
-                                <td>At Lab</td>
-                                <td style="text-align: center;"><button class="btn btn-outline-info"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
-                                <td>19-12-2021</td>
-                                <td><p style="color:green; text-align: center;"> Pending</p></td>
-                                <td>
-                                    <div class="mb-3">
-                                      <input class="form-control form-control-sm" id="formFileSm" type="file">
-                                      <button class="btn btn-info" type="button" id="inputGroupFileAddon04">Upload</button>
-                                    </div>
-                              </td>
-                              </tr>
-                            <tr>
-                            </tr>
-                          </tbody>
-                    </table>
                     <br>
                  <h3> <p style="color: green;">Test Completed ...</p></h3>
+                 <table class="table table-bordered table-hover table-sm">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th scope="col">Report ID</th>
+                      <th scope="col">Patient Name</th>
+                      <th scope="col">Contact No. </th>
+                      <th scope="col">Test Type</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Report</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngFor="let test of allRequestedTest">
+                    <tr *ngIf="test.testStatus== 'Completed'">
+                      <td scope="row">{{test.test_id}}</td>
+                      <td scope="row">{{test.patientName}}</td>
+                      <td scope="row">{{test.contactno}}</td>
+                      <td scope="row">{{test.testType}}</td>
+                      <td scope="row">{{test.address}}</td>
+                      <td scope="row">{{test.testDate}}</td>
+                      <td scope="row" style="color:green; text-align: center;">{{test.testStatus}}</td>
+                      <td scope="row"><button class="btn btn-outline-info"><i class="fa fa-file-pdf-o" style="color: red;" aria-hidden="true"></i>&nbsp;&nbsp;PDF</button></td>
+                    </tr>
+                </table>
+
                   <br>
                 </div>
                 

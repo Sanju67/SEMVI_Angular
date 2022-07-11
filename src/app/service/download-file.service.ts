@@ -22,10 +22,10 @@ export class DownloadFileService {
     return this.http.get<FileData[]>(`${environment.api_url}getfiles`);
   }
 
-  upload(file: File): Observable<HttpEvent<any>> {
+  upload(file: File,filename : any): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    const req = new HttpRequest('POST', `${environment.api_url}upload`, formData, {
+    const req = new HttpRequest('POST', `${environment.api_url}upload/${filename}`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
