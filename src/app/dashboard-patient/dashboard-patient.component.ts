@@ -28,20 +28,16 @@ export class DashboardPatientComponent implements OnInit {
   ngOnInit(): void {
      this.currentPatient = localStorage.getItem("CurrentPatient") ;
       this.patient = JSON.parse(this.currentPatient) ;
-      console.log("Value of this.patient : " ,this.patient)
+      console.log("Current patient email",this.patient.email)
       this.userName = localStorage.getItem("patientUserName");
 
       this.testService.getAllRequestTest().subscribe(data=>{
-      this.allRequestedTest = data ;
-
-        console.log(this.allRequestedTest) ;
+        this.allRequestedTest = data ;
       });
 
       this.reportService.getAllReport().subscribe(data=>{
-        this.allReports = data ;
-  
-          console.log("All report received : ",this.allReports) ;
-        });
+          this.allReports = data ;
+      });
   
 
   }
@@ -51,7 +47,7 @@ export class DashboardPatientComponent implements OnInit {
   }
 
   downloadReport(report : Report): void{
-    console.log("Inside report file method")
+    console.log("request received for : " ,report);
     this.downloadFileService.download(report.reportFile).subscribe(
       blob => {
         return saveAs(blob, report.reportFile);
@@ -61,6 +57,7 @@ export class DashboardPatientComponent implements OnInit {
   isReportPresent() : boolean {
     for(this.report in this.allReports){
       if(this.report.user_id == this.currentPatient.user_id){
+        console.log("Inside is report present");
         return true ; break;
       }
     }

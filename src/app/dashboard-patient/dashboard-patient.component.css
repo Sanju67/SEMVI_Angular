@@ -21,3 +21,12 @@
     background-color: #B9D9EB;
     
 }
+
+.table-bordered{
+    border: 2px solid black;
+}
+
+th , tr {
+    border: 1px solid gray;
+    font-size: medium;
+}

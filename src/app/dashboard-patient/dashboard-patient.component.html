@@ -45,7 +45,7 @@
                         </tr>
                       </thead>
                       <tbody *ngFor="let test of allRequestedTest">
-                        <tr *ngIf="test.user_id == patient.id">
+                        <tr *ngIf="test.user_id == patient.id && test.testStatus != 'Completed' ">
                           <td scope="row">{{test.test_id}}</td>
                           <td scope="row">{{test.patientName}}</td>
                           <td scope="row">{{test.testType}}</td>

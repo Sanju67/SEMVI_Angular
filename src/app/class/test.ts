@@ -1,4 +1,5 @@
 export class Test {
+    public test_id!:number ;
 	public patientName! :string ;
 	public doctorName! : string ;
     public prescriptionFile! : string;

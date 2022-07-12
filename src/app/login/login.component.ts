@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
               alert("Invalid login credentials ... Please try again") ;
           } else { 
               this.patient = JSON.parse(data);
-              this.setcurrentPatient(this.patient) ;
               this.patient.firstName = this.patient.firstName.charAt(0).toUpperCase() + this.patient.firstName.slice(1);
               this.patient.lastName =  this.patient.lastName.charAt(0).toUpperCase() + this.patient.lastName.slice(1);
               this.userName =  this.patient.firstName + " " + this.patient.lastName ;

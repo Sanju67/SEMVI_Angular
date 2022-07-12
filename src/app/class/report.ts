@@ -5,6 +5,7 @@ export class Report {
 	public reportDate!: string;
 	public reportFile!: string;
     public user_id!: number;
+    public test_id!:number;
 
     constructor( report_id : number , patientName :string , testType : string ,
         reportDate :string , reportFile : string ) {
