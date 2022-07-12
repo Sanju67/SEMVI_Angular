@@ -21,7 +21,7 @@
     <div class="container">
         <div class="row gap-2">
             <div class="col sm-3">
-                <a href="#" class="btn btn-info">
+                <a (click)="reload()" class="btn btn-info">
                     <span class="glyphicon glyphicon-refresh"></span> Refresh
                   </a><br><br>
                  <h3 *ngIf="isAnyTestPending()"> <p style="color: lightcoral;">New Request Received ...</p></h3>
@@ -60,10 +60,10 @@
                           </tbody>
                     </table>
                     <br>
-                    <h3><p style="color: yellowgreen;">Pending Request  ...</p></h3>
-
+                    <h3 *ngIf="isAnyTestAccepted()"><p style="color: yellowgreen;">Pending Request  ...</p></h3>
+                    <h3 *ngIf="!isAnyTestAccepted()"><p style="color: yellowgreen;">No Pending Request  ...</p></h3>
                     <table class="table table-bordered table-hover table-sm">
-                      <thead class="thead-dark">
+                      <thead class="thead-dark" *ngIf="isAnyTestAccepted()">
                         <tr>
                           <th scope="col">Test ID</th>
                           <th scope="col">Patient Name</th>

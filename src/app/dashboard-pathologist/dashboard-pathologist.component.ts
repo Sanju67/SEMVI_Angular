@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FileData } from '../class/file-data';
 import { Pathologist } from '../class/pathologist';
@@ -10,7 +10,6 @@ import { Test } from '../class/test';
 import { formatDate } from '@angular/common';
 import { Report } from '../class/report';
 import { ReportService } from '../service/report.service';
-import { of } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard-pathologist',
@@ -33,20 +32,18 @@ export class DashboardPathologistComponent implements OnInit {
   numberofReports: number =0 ;
 
   constructor(private testservice : TestService ,private downloadFileService : DownloadFileService,private reportService : ReportService, private router : Router) { 
+
   }
 
   ngOnInit(): void {
     this.testservice.getAllRequestTest().subscribe(data=>{
       this.test = JSON.parse(JSON.stringify(data)) ;
       this.numberofTest = Object.keys(data).length ;
-     // console.log("Value at 0 position , patient name is : ",this.test[0].patientName);
-      //console.log("Any pending test is there :",this.isAnyTestPending()) ;
     }); 
 
     this.reportService.getAllReport().subscribe(reports =>{
       this.allReportsReceived = JSON.parse(JSON.stringify(reports)) ;
       this.numberofReports = Object.keys(reports).length ;
-      console.log("Report at 0 position : " , this.allReportsReceived[0])
     }) ;
   } 
 
@@ -70,7 +67,7 @@ export class DashboardPathologistComponent implements OnInit {
 
   acceptStatus(test : Test){
     this.testservice.updateStatus(test).subscribe(data=>{
-      //console.log("Value of test data : ",data);
+      this.reload() ;
     }); 
   }
 
@@ -122,6 +119,16 @@ export class DashboardPathologistComponent implements OnInit {
     return false ;
   }
 
+  isAnyTestAccepted() : boolean{
+    for(let i=0 ;i<this.numberofTest;i++){
+      if(this.test[i].testStatus == "Accepted"){
+        return true ;
+        break ;
+      }
+   }
+    return false ;
+  }
+
   downloadReports(test_id : number) {
     console.log("Test id : " , test_id)
     console.log("Number of report " , this.numberofReports);
@@ -133,5 +140,9 @@ export class DashboardPathologistComponent implements OnInit {
         
       }
     }
+  }
+
+  reload(){
+    this.ngOnInit()
   }
 }
