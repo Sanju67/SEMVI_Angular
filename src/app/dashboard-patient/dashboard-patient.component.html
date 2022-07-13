@@ -31,10 +31,10 @@
             <div class="col sm-3">
                 <button class="btn btn-outline-info"  (click)="onApplyTestButtonClick('ApplyTest')"><i class="fa fa-plus-circle"></i>  Apply for New Test</button><br><br>
                
-                <a href="#"> Pending Requests :</a> <br><br>
-                <h5 *ngIf="allRequestedTest == null"> No Pending Request .... </h5>
-                <div class="col-sm-10" *ngIf="allRequestedTest != null ">
-                    <table class="table table-bordered table-hover table-sm">
+                <h4 style="color : #4169e1"> Pending Requests:</h4> <br>
+                <h5 *ngIf="!isAppliedforTest()" style="color: #dc143c;"> No Pending Request .... </h5>
+                <div class="col-sm-10">
+                    <table class="table table-bordered table-hover table-sm" *ngIf="isAppliedforTest()">
                       <thead class="thead-dark">
                         <tr>
                           <th scope="col">Test ID</th>
@@ -56,11 +56,11 @@
                 </div>
                
                
-                <a href="#"> View Reports :</a> <br><br>
-                <h5 *ngIf="!isReportPresent()" style="color: red;"> No Report Found .... </h5>
+                <h4 style="color : #4169e1"> View Reports:</h4> <br>
+                <h5 *ngIf="!isReportPresent()" style="color: #dc143c;"> No Report Found .... </h5>
                 <div class="col-sm-10">
-                    <table class="table table-bordered table-hover table-sm" *ngIf="isReportPresent()">
-                        <thead>
+                    <table class="table table-bordered table-hover table-sm">
+                        <thead *ngIf="isReportPresent()">
                             <tr>
                               <th scope="col">Report No</th>
                               <th scope="col">Patient Name</th>

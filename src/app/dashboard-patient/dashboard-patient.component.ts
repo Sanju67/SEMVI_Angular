@@ -22,23 +22,26 @@ export class DashboardPatientComponent implements OnInit {
   patient: Patient = new Patient("", "", "", "", "");
   report?:any;
   allReports:any ;
+  numberofReports: number = 0 ;
+  numberofTests : number = 0 ;
   constructor(private patientService : PatientService ,private testService : TestService, 
     private reportService : ReportService ,private downloadFileService : DownloadFileService ,private router : Router) { }
 
   ngOnInit(): void {
      this.currentPatient = localStorage.getItem("CurrentPatient") ;
       this.patient = JSON.parse(this.currentPatient) ;
-      console.log("Current patient email",this.patient.email)
       this.userName = localStorage.getItem("patientUserName");
 
       this.testService.getAllRequestTest().subscribe(data=>{
-        this.allRequestedTest = data ;
+        this.allRequestedTest = JSON.parse(JSON.stringify(data)) ;
+        this.numberofTests = Object.keys(data).length ;
       });
 
       this.reportService.getAllReport().subscribe(data=>{
-          this.allReports = data ;
+          this.allReports = JSON.parse(JSON.stringify(data));
+          this.numberofReports = Object.keys(data).length ;
       });
-  
+      
 
   }
 
@@ -55,12 +58,23 @@ export class DashboardPatientComponent implements OnInit {
   }
 
   isReportPresent() : boolean {
-    for(this.report in this.allReports){
-      if(this.report.user_id == this.currentPatient.user_id){
-        console.log("Inside is report present");
+    for(let i=0 ;i<this.numberofReports;i++){
+      if(this.allReports[i].user_id == this.patient.id){
         return true ; break;
       }
     }
     return false;
   }
+
+  isAppliedforTest() : boolean{
+    for(let i=0 ;i<this.numberofTests;i++){
+      console.log("this.allRequestedTest[i].user_id" , this.allRequestedTest[i].user_id)
+      console.log("this.patient.id" , this.patient.id)
+      if(this.allRequestedTest[i].user_id == this.patient.id && this.allRequestedTest[i].testStatus !='Completed'){
+        return true ; break;
+      }
+    }
+    return false;
+  }
+
 }
