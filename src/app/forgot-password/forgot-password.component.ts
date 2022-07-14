@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Login } from '../class/login';
 import { ManagePasswordService } from '../service/manage-password.service';
 
@@ -13,6 +14,17 @@ export class ForgotPasswordComponent implements OnInit {
 
   x: any ;
   login : any ;
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
   constructor(private router : Router,private managePasswordService : ManagePasswordService) { }
 
   ngOnInit(): void {
@@ -34,15 +46,14 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onGetNewPasswordClick(mailID : any){
-     console.log("Get new password button clicked" , mailID.value) ;
-    //  this.managePasswordService.sendMail("sanjugour67@gmail.com").subscribe({
-    //       console.log("Send mail service call sent") ,
-    //  })
     this.loginCred.email = mailID.value;
     localStorage.setItem("MailToUpdate",this.loginCred.email) ;
     this.loginCred.password = "BTMS@123" ;
-    console.log("Value of login Cred : " , this.loginCred.email) ;
      this.managePasswordService.sendMail(this.loginCred).subscribe();
+     this.Toast.fire({
+      icon: 'success',
+      title: 'Email is sent Successfully !!! '
+    })
   }
   
 }

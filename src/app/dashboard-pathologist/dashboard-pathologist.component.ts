@@ -10,6 +10,7 @@ import { Test } from '../class/test';
 import { formatDate } from '@angular/common';
 import { Report } from '../class/report';
 import { ReportService } from '../service/report.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-dashboard-pathologist',
@@ -48,14 +49,12 @@ export class DashboardPathologistComponent implements OnInit {
   } 
 
   downloadFile(test: Test): void {
-    console.log("Inside download file method")
     this.downloadFileService
       .download(test.prescriptionFile)
       .subscribe(blob => saveAs(blob, test.prescriptionFile));
   }
 
   downloadReport(report: Report): void {
-    console.log("Inside report file method" , report)
     this.downloadFileService
       .download(report.reportFile)
       .subscribe(blob => saveAs(blob,report.reportFile));
@@ -86,7 +85,11 @@ export class DashboardPathologistComponent implements OnInit {
       this.downloadFileService.upload(this.currentFile,filename).subscribe(
         (event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log("Prescription file uploaded")
+          Swal.fire(
+            'Thank You...',
+            'Report has been upload successfully!',
+            'success'
+          )
         } 
         });
       }

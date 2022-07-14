@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as saveAs from 'file-saver';
+import Swal from 'sweetalert2';
 import { Patient } from '../class/patient';
 import { Report } from '../class/report';
 import { DownloadFileService } from '../service/download-file.service';
@@ -24,6 +25,7 @@ export class DashboardPatientComponent implements OnInit {
   allReports:any ;
   numberofReports: number = 0 ;
   numberofTests : number = 0 ;
+
   constructor(private patientService : PatientService ,private testService : TestService, 
     private reportService : ReportService ,private downloadFileService : DownloadFileService ,private router : Router) { }
 
@@ -50,7 +52,13 @@ export class DashboardPatientComponent implements OnInit {
   }
 
   downloadReport(report : Report): void{
-    console.log("request received for : " ,report);
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Report is getting downloaded',
+      showConfirmButton: false,
+      timer: 1500
+    })
     this.downloadFileService.download(report.reportFile).subscribe(
       blob => {
         return saveAs(blob, report.reportFile);

@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, UntypedFormControl, UntypedFormGroup , Validators} from '@angular/forms';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '../class/login';
 import { Patient } from '../class/patient';
-import { DashboardPatientComponent } from '../dashboard-patient/dashboard-patient.component';
 import { PatientService } from '../service/patient.service';
 import { PathologistService } from '../service/pathologist.service';
 import { Pathologist } from '../class/pathologist';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +18,18 @@ export class LoginComponent implements OnInit {
   userType:any ;
   login : Login = new Login("","") ;
   
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
+  
   patient: Patient = new Patient("", "", "", "", "");
   pathologist : Pathologist = new Pathologist("","","","","","") ;
   loginForm = new UntypedFormGroup({
@@ -26,9 +37,7 @@ export class LoginComponent implements OnInit {
     password : new UntypedFormControl('',[Validators.required,Validators.minLength(4)]) ,
   })
   selectChangeHandler (event: any) {
-    //update the ui
     this.userType = event.target.value;
-    console.log('User selected',this.userType);
   }
  
   loginUser(){
@@ -53,7 +62,7 @@ export class LoginComponent implements OnInit {
       let resp = this.patientService.loginUser(this.login) ;
       resp.subscribe(data => {
           if(data==""){
-              alert("Invalid login credentials ... Please try again") ;
+            Swal.fire({icon: 'error', title: 'Invalid login credentials...',text: ' Please try again!!!'})
           } else { 
               this.patient = JSON.parse(data);
               this.patient.firstName = this.patient.firstName.charAt(0).toUpperCase() + this.patient.firstName.slice(1);
@@ -61,6 +70,7 @@ export class LoginComponent implements OnInit {
               this.userName =  this.patient.firstName + " " + this.patient.lastName ;
               localStorage.setItem("CurrentPatient", JSON.stringify(this.patient)) ;
               localStorage.setItem("patientUserName",this.userName);
+              this.Toast.fire({icon: 'success',title: 'Signed in successfully'});
               this.router.navigate([`/DashboardPatient`]);
           }
       });
@@ -69,13 +79,14 @@ export class LoginComponent implements OnInit {
     let resp = this.pathologistService.loginUser(this.login) ;
     resp.subscribe(data => {
         if(data==""){
-          alert("Invalid login credentials ... Please try again") ;
+          Swal.fire({icon: 'error', title: 'Invalid login credentials...',text: ' Please try again!!!'})
         } else {
            this.pathologist = JSON.parse(data);
            this.setcurrentPathologist(this.pathologist)
             this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.slice(1);
             localStorage.setItem("CurrentPathologist",data) ;
             localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name );
+            this.Toast.fire({icon: 'success',title: 'Signed in successfully'});
             this.router.navigate([`/DashboardPathologist`]);
         }  
     });
@@ -86,9 +97,7 @@ export class LoginComponent implements OnInit {
   OnRegisterButtonClick(pageName : string) : void{
     this.router.navigate([`${pageName}`]);
   }
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   setcurrentPatient (patient : Patient) : void {
     this.patient = patient ;
@@ -96,5 +105,7 @@ export class LoginComponent implements OnInit {
   setcurrentPathologist (pathologist : Pathologist) : void {
     this.pathologist = pathologist ;
   }
+
+  
 
 }

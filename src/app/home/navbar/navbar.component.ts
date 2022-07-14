@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -24,6 +25,12 @@ export class NavbarComponent implements OnInit {
   }
 
   onlogout():any {
+    Swal.fire({
+      icon: 'success',
+      title: 'Logged out successfully !!',
+      showConfirmButton: false,
+      timer: 200000
+    })
     localStorage.removeItem('patientUserName');
     localStorage.removeItem('pathologistOwnerName');
     

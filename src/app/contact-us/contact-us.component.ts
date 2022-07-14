@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup , Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Contactus } from '../class/contactus';
 import { ContactusService } from '../service/contactus.service';
 
@@ -35,7 +36,11 @@ export class ContactUsComponent implements OnInit {
 
   messageSubmit(){
     console.log(this.contactUsForm.value) ;
-    alert("Thanks for your FeedBack !! ") ;
+    Swal.fire(
+      'Thank You...',
+      'Your feedback is submitted !',
+      'success'
+    )
     this.contactUsForm.reset();
   }
 

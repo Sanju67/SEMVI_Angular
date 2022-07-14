@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup , Validators ,FormsModule , ReactiveFormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Pathologist } from '../class/pathologist';
 import { Patient } from '../class/patient';
 import { PathologistService } from '../service/pathologist.service';
@@ -131,8 +132,13 @@ export class RegisterComponent implements OnInit {
     
     let resp = this.patientservice.addPatient(this.patient) ;
     resp.subscribe(data => {
-        console.log("patient added successfully ." , data);
+      Swal.fire(
+        'Congratulation !',
+        'You have registered Succesfully',
+        'success'
+      )
     })
+    localStorage.setItem("CurrentPatient", JSON.stringify(this.patient)) ;
     this.patient.firstName = this.patient.firstName.charAt(0).toUpperCase() + this.patient.firstName.substr(1).toLowerCase() ;
     this.patient.lastName =  this.patient.lastName.charAt(0).toUpperCase() +  this.patient.lastName.substr(1).toLowerCase() ;
     this.patientFullName =  this.patient.firstName + " " + this.patient.lastName ;
@@ -143,9 +149,14 @@ export class RegisterComponent implements OnInit {
   OnPathologistRegisterButtonClick(pageName : string) : void{
     let resp = this.pathologistservice.addPathologist(this.pathologist) ;
     resp.subscribe(data => {
-        console.log("pathologist added successfully ." , data);
-       
+      
+      Swal.fire(
+        'Congratulation !',
+        'You have registered Succesfully',
+        'success'
+      )
     })
+    localStorage.setItem("CurrentPathologist",JSON.stringify(this.pathologist)) 
     this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.substr(1).toLowerCase() ;
     localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name) ;
     this.router.navigate([`/DashboardPathologist`]);

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup , Validators} from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Patient } from '../class/patient';
 import { Test } from '../class/test';
 import { DownloadFileService } from '../service/download-file.service';
@@ -25,6 +26,18 @@ export class ApplyTestComponent implements OnInit {
   static returnedPlan : any ;
   selectedPlan =ApplyTestComponent.returnedPlan ;
   test : Test = new Test("","","","","","","","","");
+
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
   applyTestForm = new UntypedFormGroup({
     patientName : new UntypedFormControl('',[Validators.required]),
@@ -87,9 +100,12 @@ export class ApplyTestComponent implements OnInit {
     let resp = this.testService.addNewTest(this.test) ;
     resp.subscribe(data => {
       this.returnedObject= data;
-      console.log("filename : ",this.returnedObject['filename']);
         this.upload(this.returnedObject['filename']);
-        console.log("New test added : ." , data);
+        Swal.fire(
+          'Form Submitted!',
+          'You have applied for test successfully',
+          'success'
+        )
         this.router.navigate([`/DashboardPatient`]);
        
     })
@@ -99,7 +115,6 @@ export class ApplyTestComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = localStorage.getItem("CurrentPatient") ;
     this.patient = JSON.parse(this.currentUser) ;
-    console.log("Current patient id :",this.patient.id);
   }
   
   OnSelectTestButtonClick(){
@@ -120,7 +135,6 @@ export class ApplyTestComponent implements OnInit {
 
   onMakePaymentClick(){
     this.router.navigate([`${'order'}`]);
-    console.log("Make Payment Button Clicked ....");
   }
 
   uploadPrescription(event : any){
@@ -138,7 +152,10 @@ export class ApplyTestComponent implements OnInit {
       this.downloadFileService.upload(this.currentFile,filename).subscribe(
         (event: any) => {
         if (event.type === HttpEventType.UploadProgress) {
-          console.log("Prescription file uploaded")
+          this.Toast.fire({
+            icon: 'success',
+            title: 'Precription file uploaded !!'
+          })
         } 
         });
       }
