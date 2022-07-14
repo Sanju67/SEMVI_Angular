@@ -39,6 +39,7 @@ export class ForgotPasswordComponent implements OnInit {
     //       console.log("Send mail service call sent") ,
     //  })
     this.loginCred.email = mailID.value;
+    localStorage.setItem("MailToUpdate",this.loginCred.email) ;
     this.loginCred.password = "BTMS@123" ;
     console.log("Value of login Cred : " , this.loginCred.email) ;
      this.managePasswordService.sendMail(this.loginCred).subscribe();

@@ -18,6 +18,7 @@ app.post("/sendmail", (req , res)=>{
 })
 function generateMail(mail){
 const sgMail = require('@sendgrid/mail');
+// Always need to key to send mail , generate it from sendgrid  -> setting -> get api key section
 const API_KEY="";
 
 sgMail.setApiKey(API_KEY);

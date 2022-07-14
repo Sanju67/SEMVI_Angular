@@ -30,4 +30,10 @@ export class PatientService {
     console.log("String got from http post : " , returnedString) ;
     return returnedString;
   }
+
+  resetPassword(login : Login) :  Observable<object>{
+    return this.http.put(this.url + 'updatePatient',login);
+  }
+
+
 }

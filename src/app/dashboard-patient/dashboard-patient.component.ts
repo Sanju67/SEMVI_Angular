@@ -68,8 +68,6 @@ export class DashboardPatientComponent implements OnInit {
 
   isAppliedforTest() : boolean{
     for(let i=0 ;i<this.numberofTests;i++){
-      console.log("this.allRequestedTest[i].user_id" , this.allRequestedTest[i].user_id)
-      console.log("this.patient.id" , this.patient.id)
       if(this.allRequestedTest[i].user_id == this.patient.id && this.allRequestedTest[i].testStatus !='Completed'){
         return true ; break;
       }
