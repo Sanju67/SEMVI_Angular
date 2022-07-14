@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Login } from '../class/login';
+import { ManagePasswordService } from '../service/manage-password.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,19 +12,36 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent implements OnInit {
 
   x: any ;
-  constructor(private router : Router) { }
+  login : any ;
+  constructor(private router : Router,private managePasswordService : ManagePasswordService) { }
 
   ngOnInit(): void {
   }
+
+  ForgotPasswordForm = new FormGroup({
+    email : new FormControl('',[Validators.required,Validators.email]),
+  })
+
+  get email(){
+    return this.ForgotPasswordForm.get('email') ;
+  }
+
+  loginCred : Login =  new Login("","")
+  
 
   onLoginClick(pageName: string) : void{
     this.router.navigate([`${pageName}`]);
   }
 
-  onGetNewPasswordClick(){
-     this.x = document.getElementById("success");
-    if (this.x.innerHTML === "") {
-      this.x.innerHTML = " The Password reset link has been sent to your email address successfully...";
-    }
+  onGetNewPasswordClick(mailID : any){
+     console.log("Get new password button clicked" , mailID.value) ;
+    //  this.managePasswordService.sendMail("sanjugour67@gmail.com").subscribe({
+    //       console.log("Send mail service call sent") ,
+    //  })
+    this.loginCred.email = mailID.value;
+    this.loginCred.password = "BTMS@123" ;
+    console.log("Value of login Cred : " , this.loginCred.email) ;
+     this.managePasswordService.sendMail(this.loginCred).subscribe();
   }
+  
 }

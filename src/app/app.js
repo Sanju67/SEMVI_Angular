@@ -1,17 +1,29 @@
-function generateMail(){
-    
+const { appendFile } = require('fs');
+const express = require("express") ;
+const bodyparser = require("body-parser");
+const cors = require("cors");
+const app = express() ;
+
+
+app.use(cors({origin : "*"}))
+app.use(bodyparser.json());
+
+app.listen(3000 ,() =>{
+    console.log("3000 port running...")
+})
+app.post("/sendmail", (req , res)=>{
+    let mailid = req.body
+    console.log("request received inside app.js for mail id  : ") ;
+    generateMail(mailid.email) ;
+})
+function generateMail(mail){
 const sgMail = require('@sendgrid/mail');
-const { response } = require('express');
-const API_KEY="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";
+const API_KEY="";
 
 sgMail.setApiKey(API_KEY);
-
-function getMail(){
-    return "sanjugour67@gmail.com" ;
-}
-
+console.log("Send mail to " , mail)
 const message = {
-    to: getMail(),
+    to: mail,
     from :{
         name : 'Blood Test Management System',
        email : 'sanju.mitv4a@gmail.com' ,
@@ -25,7 +37,7 @@ sgMail.send(message).then(response =>
     console.log("Email sent...." , response)) .catch (error => console.log(error.message))
 }
 
-generateMail() ;
+// generateMail() ;
 
 function myfunction(){
     console.log("Hello Javascript")
