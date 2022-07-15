@@ -1,4 +1,5 @@
 import { HostListener, Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { OrderService } from '../service/order.service';
  
 declare var Razorpay: any;
@@ -14,7 +15,7 @@ export class OrderComponent {
     paymentId: string = "";
     error: string ="";
    
-    constructor(private orderService: OrderService) {
+    constructor(private orderService: OrderService,private router : Router) {
  
     }
  
@@ -64,7 +65,8 @@ export class OrderComponent {
             console.log("Options value is : ",this.options)
             var rzp1 = new Razorpay(this.options);
             rzp1.open();
-                       
+            localStorage.setItem("paid","true") ;     
+            this.router.navigate([`/ApplyTest`]);                 
             rzp1.on('payment.failed', function (response : any){    
                 // Todo - store this information in the server
                 console.log(response.error.code);    

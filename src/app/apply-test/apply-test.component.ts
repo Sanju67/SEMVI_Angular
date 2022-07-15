@@ -163,6 +163,12 @@ export class ApplyTestComponent implements OnInit {
     }
   }
 
+  isPaidAmount() : boolean{
+    if(localStorage.getItem('paid')){
+      return true;
+    }
+    return false ;
+  }
   
 }
 

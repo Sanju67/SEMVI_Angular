@@ -31,9 +31,8 @@ export class NavbarComponent implements OnInit {
       showConfirmButton: false,
       timer: 200000
     })
-  localStorage.removeItem('patientUserName');
-  localStorage.removeItem('pathologistOwnerName');
-  
+  localStorage.clear() ;
+  this.router.navigate([`/Home`]);
     
   }
 }
