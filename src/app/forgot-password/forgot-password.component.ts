@@ -30,6 +30,7 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
   ForgotPasswordForm = new FormGroup({
     email : new FormControl('',[Validators.required,Validators.email]),
   })
@@ -47,7 +48,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   onGetNewPasswordClick(mailID : any){
     this.loginCred.email = mailID.value;
-    localStorage.setItem("MailToUpdate",this.loginCred.email) ;
+  localStorage.setItem("MailToUpdate",this.loginCred.email) ;
     this.loginCred.password = "BTMS@123" ;
      this.managePasswordService.sendMail(this.loginCred).subscribe();
      this.Toast.fire({

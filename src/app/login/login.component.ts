@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   userType:any ;
   login : Login = new Login("","") ;
   
+  
   Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -84,8 +85,8 @@ export class LoginComponent implements OnInit {
            this.pathologist = JSON.parse(data);
            this.setcurrentPathologist(this.pathologist)
             this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.slice(1);
-            localStorage.setItem("CurrentPathologist",data) ;
-            localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name );
+          localStorage.setItem("CurrentPathologist",data) ;
+          localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name );
             this.Toast.fire({icon: 'success',title: 'Signed in successfully'});
             this.router.navigate([`/DashboardPathologist`]);
         }  
@@ -97,7 +98,9 @@ export class LoginComponent implements OnInit {
   OnRegisterButtonClick(pageName : string) : void{
     this.router.navigate([`${pageName}`]);
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   
+  }
 
   setcurrentPatient (patient : Patient) : void {
     this.patient = patient ;

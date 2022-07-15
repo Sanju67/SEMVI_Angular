@@ -66,4 +66,6 @@ export class ContactUsComponent implements OnInit {
         console.log("FeedBack added successfully ." , data);
     });
   }
+
+  
 }

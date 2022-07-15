@@ -25,7 +25,6 @@ export class DashboardPatientComponent implements OnInit {
   allReports:any ;
   numberofReports: number = 0 ;
   numberofTests : number = 0 ;
-
   constructor(private patientService : PatientService ,private testService : TestService, 
     private reportService : ReportService ,private downloadFileService : DownloadFileService ,private router : Router) { }
 
@@ -83,4 +82,5 @@ export class DashboardPatientComponent implements OnInit {
     return false;
   }
 
+  
 }

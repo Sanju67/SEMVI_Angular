@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -10,7 +11,10 @@ import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(config: NgbCarouselConfig ) {
+  currentPathologist : any ;
+  currentPatient : any ;
+
+  constructor(config: NgbCarouselConfig , private router  : Router) {
      config.interval = 3000;
     config.wrap = true;
     config.keyboard = false;
@@ -18,7 +22,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.currentPathologist = localStorage.getItem("CurrentPathologist") ;
+    if(this.currentPathologist != null){
+      this.router.navigate([`DashboardPathologist`]);
+     }
   
+     this.currentPatient = localStorage.getItem("CurrentPatient") ;
+      if(this.currentPatient != null){
+      this.router.navigate([`DashboardPatient`]);
+     }
   }
+  
 
 }

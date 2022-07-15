@@ -138,11 +138,11 @@ export class RegisterComponent implements OnInit {
         'success'
       )
     })
-    localStorage.setItem("CurrentPatient", JSON.stringify(this.patient)) ;
+  localStorage.setItem("CurrentPatient", JSON.stringify(this.patient)) ;
     this.patient.firstName = this.patient.firstName.charAt(0).toUpperCase() + this.patient.firstName.substr(1).toLowerCase() ;
     this.patient.lastName =  this.patient.lastName.charAt(0).toUpperCase() +  this.patient.lastName.substr(1).toLowerCase() ;
     this.patientFullName =  this.patient.firstName + " " + this.patient.lastName ;
-    localStorage.setItem("patientUserName",this.patientFullName) ;
+  localStorage.setItem("patientUserName",this.patientFullName) ;
     this.router.navigate([`${pageName}`]);
   }
 
@@ -156,9 +156,9 @@ export class RegisterComponent implements OnInit {
         'success'
       )
     })
-    localStorage.setItem("CurrentPathologist",JSON.stringify(this.pathologist)) 
+  localStorage.setItem("CurrentPathologist",JSON.stringify(this.pathologist)) 
     this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.substr(1).toLowerCase() ;
-    localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name) ;
+  localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name) ;
     this.router.navigate([`/DashboardPathologist`]);
     this.router.navigate([`${pageName}`]);
   }

@@ -19,7 +19,8 @@
           "options": {
             "outputPath": "dist/Blood-Test-Management-System",
             "allowedCommonJsDependencies": [
-              "file-saver"
+              "file-saver",
+              "sweetalert2"
            ],
             "index": "src/index.html",
             "main": "src/main.ts",

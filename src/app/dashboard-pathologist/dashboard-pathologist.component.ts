@@ -31,12 +31,28 @@ export class DashboardPathologistComponent implements OnInit {
   returnObject: any;
   allReportsReceived: any;
   numberofReports: number =0 ;
+  currentPathologist: any;
+
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  })
 
   constructor(private testservice : TestService ,private downloadFileService : DownloadFileService,private reportService : ReportService, private router : Router) { 
 
   }
 
   ngOnInit(): void {
+    this.currentPathologist = localStorage.getItem("CurrentPathologist") ;
+    console.log("Current pathologist : " , this.currentPathologist)
+    
     this.testservice.getAllRequestTest().subscribe(data=>{
       this.test = JSON.parse(JSON.stringify(data)) ;
       this.numberofTest = Object.keys(data).length ;
@@ -49,12 +65,26 @@ export class DashboardPathologistComponent implements OnInit {
   } 
 
   downloadFile(test: Test): void {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Prescription is getting downloaded',
+      showConfirmButton: false,
+      timer: 1500
+    })
     this.downloadFileService
       .download(test.prescriptionFile)
       .subscribe(blob => saveAs(blob, test.prescriptionFile));
   }
 
   downloadReport(report: Report): void {
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Report is getting downloaded',
+      showConfirmButton: false,
+      timer: 1500
+    })
     this.downloadFileService
       .download(report.reportFile)
       .subscribe(blob => saveAs(blob,report.reportFile));
@@ -132,6 +162,16 @@ export class DashboardPathologistComponent implements OnInit {
     return false ;
   }
 
+  isAnyTestCompleted() : boolean{
+    for(let i=0 ;i<this.numberofTest;i++){
+      if(this.test[i].testStatus == "Completed"){
+        return true ;
+        break ;
+      }
+   }
+    return false ;
+  }
+
   downloadReports(test_id : number) {
     console.log("Test id : " , test_id)
     console.log("Number of report " , this.numberofReports);
@@ -148,4 +188,6 @@ export class DashboardPathologistComponent implements OnInit {
   reload(){
     this.ngOnInit()
   }
+
+  
 }

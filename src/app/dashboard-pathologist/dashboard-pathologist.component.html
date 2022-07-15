@@ -97,9 +97,10 @@
                         </tr>
                     </table>
                     <br>
-                 <h3> <p style="color: green;">Test Completed ...</p></h3>
+                 <h3 *ngIf="isAnyTestCompleted()"> <p style="color: green;">Test Completed ...</p></h3>
+                 <h3 *ngIf="!isAnyTestCompleted()"><p style="color: yellowgreen;">No Test Completed  ...</p></h3>
                  <table class="table table-bordered table-hover table-sm">
-                  <thead class="thead-dark">
+                  <thead class="thead-dark" *ngIf="isAnyTestCompleted()">
                     <tr>
                       <th scope="col">Report ID</th>
                       <th scope="col">Patient Name</th>

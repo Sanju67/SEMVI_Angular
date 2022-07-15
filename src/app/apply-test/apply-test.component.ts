@@ -100,6 +100,7 @@ export class ApplyTestComponent implements OnInit {
     let resp = this.testService.addNewTest(this.test) ;
     resp.subscribe(data => {
       this.returnedObject= data;
+      console.log("this.returnedObject['filename']" , this.returnedObject['filename'])
         this.upload(this.returnedObject['filename']);
         Swal.fire(
           'Form Submitted!',
@@ -125,7 +126,7 @@ export class ApplyTestComponent implements OnInit {
     if(localStorage.getItem("planSelected") != undefined){
       this.returnedPlan = localStorage.getItem("planSelected");
     } else {
-      localStorage.removeItem("planSelected");
+    localStorage.removeItem("planSelected");
     }
   }
 
@@ -161,5 +162,7 @@ export class ApplyTestComponent implements OnInit {
       }
     }
   }
+
+  
 }
 

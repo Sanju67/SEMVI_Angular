@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-root',
@@ -9,4 +8,9 @@ import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 export class AppComponent {
   title = 'Blood-Test-Management-System';
   model: any ;
+
+  ngOnInit(): void {
+
+  }
+  
 }

@@ -31,8 +31,9 @@ export class NavbarComponent implements OnInit {
       showConfirmButton: false,
       timer: 200000
     })
-    localStorage.removeItem('patientUserName');
-    localStorage.removeItem('pathologistOwnerName');
+  localStorage.removeItem('patientUserName');
+  localStorage.removeItem('pathologistOwnerName');
+  
     
   }
 }
