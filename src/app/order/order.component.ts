@@ -21,9 +21,9 @@ export class OrderComponent {
     options = {
     "key": "",
     "amount": "", 
-    "name": "Java Chinna",
-    "description": "Web Development",
-    "image": "https://www.javachinna.com/wp-content/uploads/2020/02/android-chrome-512x512-1.png",
+    "name": "Blood Test Managment System",
+    "description": "Web application",
+    "image": "assets/logo.png",
     "order_id":"",
     "handler": function (response : any){
         var event = new CustomEvent("payment.success", 

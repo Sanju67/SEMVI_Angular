@@ -13,17 +13,21 @@ providedIn: 'root'
 })
 export class OrderService {
     private url: string = `${environment.api_url}`;
+    patient : any ;
+    currentPatient : any ;
     constructor(private http: HttpClient) {
- 
+        
     }
    
     createOrder(order : any): Observable<any> {
-        console.log("create order service called",order,)
+        this.currentPatient = localStorage.getItem("CurrentPatient") ;
+        this.patient = JSON.parse(this.currentPatient) ;
         return this.http.post(this.url + "createOrder" ,  {
         customerName: order.name,
         email: order.email,
         phoneNumber: order.phone,
-        amount: order.amount
+        amount: order.amount,
+        user_id : this.patient.id 
         }, httpOptions);
     }
    

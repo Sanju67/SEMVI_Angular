@@ -32,7 +32,6 @@ export class DashboardPatientComponent implements OnInit {
      this.currentPatient = localStorage.getItem("CurrentPatient") ;
       this.patient = JSON.parse(this.currentPatient) ;
       this.userName = localStorage.getItem("patientUserName");
-
       this.testService.getAllRequestTest().subscribe(data=>{
         this.allRequestedTest = JSON.parse(JSON.stringify(data)) ;
         this.numberofTests = Object.keys(data).length ;
