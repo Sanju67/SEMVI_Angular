@@ -77,42 +77,45 @@ export class RegisterComponent implements OnInit {
   }
 
   pathologistForm = new UntypedFormGroup({
-    pathologistOwnerName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
-    pathologistShopName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z0-9]{10}$')]),
-    pathologistEmail : new UntypedFormControl('',[Validators.required,Validators.email]),
-    pathologistPhoneNo : new UntypedFormControl('',[
+    owner_name : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+    shop_name : new UntypedFormControl('',[Validators.required]),
+    email : new UntypedFormControl('',[Validators.required,Validators.email]),
+    contact_no : new UntypedFormControl('',[
       Validators.required,
       Validators.minLength(10),
       Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'),
       Validators.maxLength(10)]),
-      pathologistAddress : new UntypedFormControl('',[Validators.required]),
-      pathologistPassword : new UntypedFormControl('',[Validators.required]),
+      address : new UntypedFormControl('',[Validators.required]),
+      password : new UntypedFormControl('',[Validators.required]),
       pathologistConfirmPassword : new UntypedFormControl('',[Validators.required]),
     
   })
 
-  get pathologistOwnerName(){
-    return this.pathologistForm.get('pathologistOwnerName') ;
+  get owner_name(){
+    return this.pathologistForm.get('owner_name') ;
   }
 
+  get shop_name(){
+    return this.pathologistForm.get('shop_name') ;
+  }
   get pathologistShopName(){
     return this.pathologistForm.get('pathologistShopName') ;
   }
 
-  get pathologistEmail(){
-    return this.pathologistForm.get('pathologistEmail') ;
+  get email(){
+    return this.pathologistForm.get('email') ;
   }
 
-  get pathologistPhoneNo(){
-    return this.pathologistForm.get('pathologistPhoneNo') ;
+  get contact_no(){
+    return this.pathologistForm.get('contact_no') ;
   }
 
-  get pathologistAddress(){
-    return this.pathologistForm.get('pathologistAddress') ;
+  get address(){
+    return this.pathologistForm.get('address') ;
   }
 
-  get pathologistPassword(){
-    return this.pathologistForm.get('pathologistPassword') ;
+  get pathpassword(){
+    return this.pathologistForm.get('password') ;
   }
 
   get pathologistConfirmPassword(){
@@ -157,8 +160,8 @@ export class RegisterComponent implements OnInit {
       )
     })
   localStorage.setItem("CurrentPathologist",JSON.stringify(this.pathologist)) 
-    this.pathologist.pathologistOwnerName = this.pathologist.pathologistOwnerName.charAt(0).toUpperCase() + this.pathologist.pathologistOwnerName.substr(1).toLowerCase() ;
-  localStorage.setItem("pathologistOwnerName",this.pathologist.pathologistOwnerName) ;
+    this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.substr(1).toLowerCase() ;
+  localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name) ;
     this.router.navigate([`/DashboardPathologist`]);
     this.router.navigate([`${pageName}`]);
   }

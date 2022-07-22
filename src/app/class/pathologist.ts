@@ -1,14 +1,14 @@
 export class Pathologist {
 
-    public pathologistOwnerName! : string ;
-    public pathologistShopName! : string;
-    public pathologistEmail! : string ;
-    public pathologistPassword! : string ;
-    public pathologistPhoneNo! : string;
-    public pathologistAddress! : string ;
+    public owner_name! : string ;
+    public shop_name! : string;
+    public email! : string ;
+    public password! : string ;
+    public contact_no! : string;
+    public address! : string ;
     public pathologistConfirmPassword! : string ;
     constructor(owner_name : string , shop_name : string , email: string , 
-        pathologistPassword : string , contact_no : string , address : string){
+        password : string , contact_no : string , address : string){
 
     }
 
