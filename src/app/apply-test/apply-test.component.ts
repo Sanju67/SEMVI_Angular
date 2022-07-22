@@ -40,8 +40,8 @@ export class ApplyTestComponent implements OnInit {
   })
 
   applyTestForm = new UntypedFormGroup({
-    patientName : new UntypedFormControl('',[Validators.required]),
-    doctorName : new UntypedFormControl('',[Validators.required]),
+    patientName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+    doctorName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
     prescriptionFile : new UntypedFormControl('',[Validators.required]),
     contactNo : new UntypedFormControl('',[
       Validators.required,

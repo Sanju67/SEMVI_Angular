@@ -84,9 +84,9 @@ export class LoginComponent implements OnInit {
         } else {
            this.pathologist = JSON.parse(data);
            this.setcurrentPathologist(this.pathologist)
-            this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.slice(1);
+            this.pathologist.pathologistOwnerName = this.pathologist.pathologistOwnerName.charAt(0).toUpperCase() + this.pathologist.pathologistOwnerName.slice(1);
           localStorage.setItem("CurrentPathologist",data) ;
-          localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name );
+          localStorage.setItem("pathologistOwnerName",this.pathologist.pathologistOwnerName );
             this.Toast.fire({icon: 'success',title: 'Signed in successfully'});
             this.router.navigate([`/DashboardPathologist`]);
         }  

@@ -39,8 +39,8 @@ export class RegisterComponent implements OnInit {
 
 
   patientForm = new UntypedFormGroup({
-    firstName : new UntypedFormControl('',[Validators.required]),
-    lastName : new UntypedFormControl('',[Validators.required]),
+    firstName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+    lastName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
     password : new UntypedFormControl('',[Validators.required]),
     confirmPassword : new UntypedFormControl('',[Validators.required]),
     patientEmail : new UntypedFormControl('',[Validators.required,Validators.email]),
@@ -77,16 +77,16 @@ export class RegisterComponent implements OnInit {
   }
 
   pathologistForm = new UntypedFormGroup({
-    owner_name : new UntypedFormControl('',[Validators.required]),
-    shop_name : new UntypedFormControl('',[Validators.required]),
-    email : new UntypedFormControl('',[Validators.required,Validators.email]),
-    contact_no : new UntypedFormControl('',[
+    pathologistOwnerName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
+    pathologistShopName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z0-9]{10}$')]),
+    pathologistEmail : new UntypedFormControl('',[Validators.required,Validators.email]),
+    pathologistPhoneNo : new UntypedFormControl('',[
       Validators.required,
       Validators.minLength(10),
       Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'),
       Validators.maxLength(10)]),
-      address : new UntypedFormControl('',[Validators.required]),
-      password : new UntypedFormControl('',[Validators.required]),
+      pathologistAddress : new UntypedFormControl('',[Validators.required]),
+      pathologistPassword : new UntypedFormControl('',[Validators.required]),
       pathologistConfirmPassword : new UntypedFormControl('',[Validators.required]),
     
   })
@@ -157,8 +157,8 @@ export class RegisterComponent implements OnInit {
       )
     })
   localStorage.setItem("CurrentPathologist",JSON.stringify(this.pathologist)) 
-    this.pathologist.owner_name = this.pathologist.owner_name.charAt(0).toUpperCase() + this.pathologist.owner_name.substr(1).toLowerCase() ;
-  localStorage.setItem("pathologistOwnerName",this.pathologist.owner_name) ;
+    this.pathologist.pathologistOwnerName = this.pathologist.pathologistOwnerName.charAt(0).toUpperCase() + this.pathologist.pathologistOwnerName.substr(1).toLowerCase() ;
+  localStorage.setItem("pathologistOwnerName",this.pathologist.pathologistOwnerName) ;
     this.router.navigate([`/DashboardPathologist`]);
     this.router.navigate([`${pageName}`]);
   }

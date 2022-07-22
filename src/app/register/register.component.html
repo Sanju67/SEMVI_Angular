@@ -35,11 +35,11 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <input type="text" class="form-control" formControlName="firstName" [(ngModel)]="patient.firstName" placeholder="First Name *" value="" />
-                            <span style="color: red;" *ngIf="firstName && firstName.invalid && firstName.touched">Please enter your first name<br></span>
+                            <span style="color: red;" *ngIf="firstName && firstName.invalid && firstName.touched">Invalid First Name<br></span>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" formControlName="lastName" [(ngModel)]="patient.lastName" placeholder="Last Name *" value="" />
-                            <span style="color: red;" *ngIf="lastName && lastName.invalid && lastName.touched">Please enter your last name<br></span>
+                            <span style="color: red;" *ngIf="lastName && lastName.invalid && lastName.touched">Invalid Last Name<br></span>
                         </div>
                         <div class="form-group">
                             <input type="password" class="form-control" formControlName="password" [(ngModel)]="patient.password" placeholder="Password *" value="" />
@@ -61,7 +61,7 @@
                             <span style="color: red;" *ngIf="patientContactno && patientContactno.invalid && patientContactno.touched">Please enter your contact no. <br></span>
                         </div>
                         
-                        <button type="submit" (click)="OnPatientRegisterButtonClick('DashboardPatient')" class="btnRegister">Register</button>
+                        <button type="submit" [disabled]="patientForm.invalid" (click)="OnPatientRegisterButtonClick('DashboardPatient')" class="btnRegister">Register</button>
                         <!-- [disabled]="patientForm.invalid" -->
                     </div>
                 </div>
@@ -74,29 +74,29 @@
                 <div class="row register-form">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" formControlName="owner_name" [(ngModel)]="pathologist.owner_name" placeholder="Owner Name *" value="" />
+                            <input type="text" class="form-control" formControlName="pathologistOwnerName" [(ngModel)]="pathologist.pathologistOwnerName" placeholder="Owner Name *" value="" />
                             <span style="color: red;" *ngIf="pathologistOwnerName && pathologistOwnerName.invalid && pathologistOwnerName.touched">Please enter owner name <br></span>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" formControlName="shop_name" [(ngModel)]="pathologist.shop_name" placeholder="Shop Name *" value="" />
+                            <input type="text" class="form-control" formControlName="pathologistShopName" [(ngModel)]="pathologist.pathologistShopName" placeholder="Shop Name *" value="" />
                             <span style="color: red;" *ngIf="pathologistShopName && pathologistShopName.invalid && pathologistShopName.touched">Please enter your shop name <br></span>
                         </div>
                         <div class="form-group">
-                            <input type="email" class="form-control" formControlName="email" [(ngModel)]="pathologist.email" placeholder="Email *" value="" />
+                            <input type="email" class="form-control" formControlName="pathologistEmail" [(ngModel)]="pathologist.pathologistEmail" placeholder="Email *" value="" />
                             <span style="color: red;" *ngIf="pathologistEmail && pathologistEmail.invalid && pathologistEmail.touched">Please enter your email ID. <br></span>
                         </div>
                         <div class="form-group">
-                            <input type="text" maxlength="10" formControlName="contact_no" [(ngModel)]="pathologist.contact_no" class="form-control" placeholder="Phone Number *" value="" />
+                            <input type="text" maxlength="10" formControlName="pathologistPhoneNo" [(ngModel)]="pathologist.pathologistPhoneNo" class="form-control" placeholder="Phone Number *" value="" />
                             <span style="color: red;" *ngIf="pathologistPhoneNo && pathologistPhoneNo.invalid && pathologistPhoneNo.touched">Please enter your contact no. <br></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <input type="text" class="form-control" formControlName="address" [(ngModel)]="pathologist.address" placeholder="Address *" value="" />
+                            <input type="text" class="form-control" formControlName="pathologistAddress" [(ngModel)]="pathologist.pathologistAddress" placeholder="Address *" value="" />
                             <span style="color: red;" *ngIf="pathologistAddress && pathologistAddress.invalid && pathologistAddress.touched">Please enter Lab address <br></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" formControlName="password" [(ngModel)]="pathologist.password" placeholder="Password *" value="" />
+                            <input type="password" class="form-control" formControlName="pathologistPassword" [(ngModel)]="pathologist.pathologistPassword" placeholder="Password *" value="" />
                             <span style="color: red;" *ngIf="pathologistPassword && pathologistPassword.invalid && pathologistPassword.touched">Please enter your password <br></span>
                         </div>
                         <div class="form-group">
@@ -104,7 +104,7 @@
                             <span style="color: red;" *ngIf="pathologistConfirmPassword && pathologistConfirmPassword.invalid && pathologistConfirmPassword.touched">Please enter your password again. <br></span>
                         </div>
                         
-                        <button type="submit" (click)="OnPathologistRegisterButtonClick('DashboardPathologist')" class="btnRegister">Register</button>
+                        <button type="submit" [disabled]="pathologistForm.invalid" (click)="OnPathologistRegisterButtonClick('DashboardPathologist')" class="btnRegister">Register</button>
                         <!--  [disabled]="pathologistForm.invalid" -->
                     </div>
                 </div>
