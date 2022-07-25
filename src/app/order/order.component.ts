@@ -14,10 +14,24 @@ export class OrderComponent {
     form: any = {}; 
     paymentId: string = "";
     error: string ="";
-   
+    currentPatient : any
     constructor(private orderService: OrderService,private router : Router) {
  
     }
+
+    ngOnInit(): void {
+          this.form.name = sessionStorage.getItem("tempPatientName") || "";
+          this.form.phone = sessionStorage.getItem("tempContactNo") || "";
+          const plan = localStorage.getItem("planSelected");
+          if(plan == "Basic Blood Test Plan"){
+            this.form.amount = 1000 ;
+          } else if (plan == "Standard Blood Test Plan"){
+            this.form.amount = 1500 ;
+          }
+          else if(plan == "Premium Blood Test Plan"){
+            this.form.amount = 2000 ;
+          }
+      }
  
     options = {
     "key": "",

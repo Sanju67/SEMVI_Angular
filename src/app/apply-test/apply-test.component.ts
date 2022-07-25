@@ -107,6 +107,7 @@ export class ApplyTestComponent implements OnInit {
           'You have applied for test successfully',
           'success'
         )
+        sessionStorage.clear() ;
         this.router.navigate([`/DashboardPatient`]);
        
     })
@@ -116,6 +117,16 @@ export class ApplyTestComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = localStorage.getItem("CurrentPatient") ;
     this.patient = JSON.parse(this.currentUser) ;
+
+    if(this.isPaidAmount()){
+      this.test.patientName = sessionStorage.getItem("tempPatientName") || "";
+      this.test.doctorName = sessionStorage.getItem("tempDoctorName") || "";
+      this.test.prescriptionFile = sessionStorage.getItem("tempPrescriptionFile") || "";
+      this.test.contactno = sessionStorage.getItem("tempContactNo") || "";
+      this.test.testDate = sessionStorage.getItem("tempTestDate") || "";
+      this.test.address = sessionStorage.getItem("tempTestAddress") || "";
+      this.test.testLocation = sessionStorage.getItem("tempTestLocation") || "" ;
+    }
   }
   
   OnSelectTestButtonClick(){
@@ -135,12 +146,20 @@ export class ApplyTestComponent implements OnInit {
   }
 
   onMakePaymentClick(){
+    
+    sessionStorage.setItem("tempPatientName",this.applyTestForm.value.patientName)
+    sessionStorage.setItem("tempDoctorName",this.applyTestForm.value.doctorName)
+    sessionStorage.setItem("tempPrescriptionFile",this.applyTestForm.value.prescriptionFile);
+    sessionStorage.setItem("tempContactNo",this.applyTestForm.value.contactNo) ;
+    sessionStorage.setItem("tempTestDate",this.applyTestForm.value.testdate) ;
+    sessionStorage.setItem("tempTestAddress",this.test.address) ;
+    sessionStorage.setItem("tempTestLocation",this.applyTestForm.value.testLocation)
+    
     this.router.navigate([`${'order'}`]);
   }
 
   uploadPrescription(event : any){
     this.selectedFiles = event.target.files;
-    console.log(event.target.files[0].name) ;
   }
 
   upload(filename : any) {
@@ -169,6 +188,5 @@ export class ApplyTestComponent implements OnInit {
     }
     return false ;
   }
-  
-}
 
+}
