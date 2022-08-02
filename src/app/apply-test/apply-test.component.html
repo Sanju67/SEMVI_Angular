@@ -18,35 +18,39 @@
                             <button type="button" *ngIf="!isPlanSelected()" (click)="OnSelectTestButtonClick()" class="btn btn-outline-primary">Select Test Plan</button>
                             <p style="padding-top: 8px;font-size: medium;color:#5D3FD3;" *ngIf="isPlanSelected()">{{selectedPlan}}</p>
                             
-                            <span style="color: red;" *ngIf="testType && testType.invalid && testType.touched">Please enter valid test type<br></span>
+                            <span style="color: red;padding-left: 28%;padding-top: 1px;" *ngIf="testType && testType.invalid && testType.touched">Please enter valid test type<br></span>
                         </div>
 
                         <div  class="form-group form-check-inline">
                             <label class="col-sm-3 col-form-label"> Patient Name : </label>
                             <input type="text" name="txtName" class="form-control col-sm-6" [(ngModel)]="test.patientName" formControlName="patientName"  placeholder="Patient Name *" value="" />
-                            <span style="color: red;" *ngIf="patientName && patientName.invalid && patientName.touched">Please enter patient name</span>
+                            <span style="color: red;padding-left: 28%;padding-top: 1px;" *ngIf="patientName && patientName.invalid && patientName.touched">Invalid Patient Name</span>
                         </div>
                         <div class=" form-group form-check-inline">
                             <label class="col-sm-3 col-form-label"> Doctor Name : </label>
                             <input type="text" name="txtEmail" class="form-control col-sm-6" [(ngModel)]="test.doctorName" formControlName="doctorName" placeholder="Doctor Name *" value="" />
-                            <span style="color: red;" *ngIf="doctorName && doctorName.invalid && doctorName.touched">Please enter valid docter name<br></span>
+                            <span style="color: red;padding-left: 28%;padding-top: 1px;" *ngIf="doctorName && doctorName.invalid && doctorName.touched">Invalid docter name<br></span>
                         </div>
                         
                         <div class="form-group form-check-inline">
                             <label class="col-sm-3 col-form-label">Prescription file : </label>
                             <input type="file" class="form-control col-sm-6 file" [(ngModel)]="test.prescriptionFile" (change)="uploadPrescription($event)" formControlName="prescriptionFile" id="exampleFormControlFile1">
-                            <span style="color: red;" *ngIf="prescriptionFile && prescriptionFile.invalid && prescriptionFile.touched">Please select file<br></span>
+                            <span style="color: red;padding-left: 28%;padding-top: 1px;" *ngIf="prescriptionFile && prescriptionFile.invalid && prescriptionFile.touched">Please select file<br></span>
                           </div>
                         <div  class="form-group form-check-inline">
                             <label class="col-sm-3 col-form-label"> Contact No. : </label>
                             <input type="text" name="txtPhone" class="form-control col-sm-6" [(ngModel)]="test.contactno" formControlName="contactNo" maxlength="10"placeholder="Your Phone Number *" value="" />
-                            <span style="color: red;" *ngIf="contactNo && contactNo.invalid && contactNo.touched">Please enter valid contact number<br></span>
+                            <span style="color: red;padding-left: 28%;padding-top: 1px;" *ngIf="contactNo && contactNo.invalid && contactNo.touched">Invalid contact number<br></span>
+                            <span style="color: red;padding-left: 28%;padding-top: 1px;" *ngIf="contactNo && isPhoneNumberInValid() && contactNo.touched">Invalid contact number 1<br></span>
+                            
                         </div>
                         
                         <div class=" form-group form-check-inline">
                             <label  class="col-sm-3 col-form-label"> Date : </label>
                             <input type="text" name="txtdate" class="form-control col-sm-6 button.calendar" [(ngModel)]="test.testDate" formControlName="testdate" placeholder="DD/MM/YYYY *" value="" />
-                            <span style="color: red;" *ngIf="testdate && testdate.invalid && testdate.touched">Please enter valid date<br></span>
+                            <span style="color: red;padding-left: 28%;padding-top: 1px;" *ngIf="testdate && testdate.invalid && testdate.touched">Invalid date<br></span>
+                            <span style="color: red;padding-left: 28%;padding-top: 1px;" *ngIf="isPastDate()">Test Date cannot be in past <br></span>
+                            
                         </div>
                         <div  class="form-group form-check-inline">
                             <label class="col-sm-3 col-form-label"> Test Location :  </label>
@@ -60,7 +64,7 @@
                         </div>
                         <div *ngIf="testLocation == 1">
                             <textarea name="txtMsg" class="form-control col-sm-10" [(ngModel)]="test.address"  formControlName="homeAddress" placeholder="Your Address *" style="width: 100%; height: 150px;"></textarea><br>
-                            <span style="color: red;" *ngIf="homeAddress && homeAddress.invalid && homeAddress.touched">Please enter valid date<br></span>
+                            <span style="color: red;" *ngIf="homeAddress && homeAddress.invalid && homeAddress.touched">Invalid address<br></span>
                         </div>
                         <div *ngIf="testLocation == 0">
                             <textarea name="txtMsg" class="form-control col-sm-10" [(ngModel)]="test.address" formControlName="labAddress" readonly placeholder="Sr.no 43/12 , ABC Nirman , Laxman nagar , Thergaon , Pune , Maharashtra , India . " style="width: 100%; height: 150px;"></textarea><br>

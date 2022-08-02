@@ -1,3 +1,4 @@
+
 import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup , Validators} from '@angular/forms';
@@ -26,6 +27,10 @@ export class ApplyTestComponent implements OnInit {
   static returnedPlan : any ;
   selectedPlan =ApplyTestComponent.returnedPlan ;
   test : Test = new Test("","","","","","","","","");
+  // todayDate = new Date(Date.now());
+  nowDate = new Date(); 
+  todayDate =(this.nowDate.getDate()+'/'+(this.nowDate.getMonth()+1))+'/'+ this.nowDate.getFullYear();
+  
 
   Toast = Swal.mixin({
     toast: true,
@@ -44,11 +49,12 @@ export class ApplyTestComponent implements OnInit {
     doctorName : new UntypedFormControl('',[Validators.required,Validators.pattern('^[a-zA-Z ]*$')]),
     prescriptionFile : new UntypedFormControl('',[Validators.required]),
     contactNo : new UntypedFormControl('',[
+      Validators.pattern("[0-9 ]{10}") ,
       Validators.required,
-      Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'),
+      // Validators.pattern('^\\s*(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?\\s*$'),
       Validators.minLength(10)]),
     testType : new UntypedFormControl('',[Validators.required]),
-    testdate : new UntypedFormControl('',[Validators.required]) ,
+    testdate : new UntypedFormControl('',[Validators.required ,Validators.minLength(10),Validators.maxLength(10)]) ,
     testLocation  : new UntypedFormControl('',[Validators.required]) ,
     homeAddress :  new UntypedFormControl('') ,
     labAddress :  new UntypedFormControl('') 
@@ -112,11 +118,15 @@ export class ApplyTestComponent implements OnInit {
        
     })
   }
-  constructor(private testService:TestService, private downloadFileService : DownloadFileService ,private router : Router) { }
+  myDate = new Date(); 
+  constructor(private testService:TestService, private downloadFileService : DownloadFileService ,private router : Router) {
+    
+   }
 
   ngOnInit(): void {
     this.currentUser = localStorage.getItem("CurrentPatient") ;
     this.patient = JSON.parse(this.currentUser) ;
+    console.log("is payment made " , this.isPaidAmount()) ;
 
     if(this.isPaidAmount()){
       this.test.patientName = sessionStorage.getItem("tempPatientName") || "";
@@ -189,4 +199,40 @@ export class ApplyTestComponent implements OnInit {
     return false ;
   }
 
+  isPastDate () : boolean {
+    
+    let testDate = "12" ;
+    testDate =  this.test.testDate ? this.test.testDate.substring(0,2) : '';
+    let testMonth ="12"
+    testMonth= this.test.testDate ? this.test.testDate.substring(3, 5) : '';
+    let testYear ="12" ;
+    testYear= this.test.testDate ? this.test.testDate.substring(6,10) : ''; 
+    
+    if((parseInt(testYear) < this.nowDate.getFullYear() ) || (parseInt(testMonth) < (this.nowDate.getMonth()+1))  ){
+      if(parseInt(testDate) < this.nowDate.getDate())
+      console.log("Date cannot be in past");
+      return true ;
+    }
+
+    return false ;
+  }
+
+  isPhoneNumberInValid() : boolean {
+    let firstDigit = this.test.contactno ? this.test.contactno.substring(0,1) : ''; 
+    let secondDigit = this.test.contactno ?this.test.contactno.substring(1,2): '' ;
+    let thirdDigit = this.test.contactno ?this.test.contactno.substring(2,3): '';
+    let forthDigit = this.test.contactno ?this.test.contactno.substring(3,4): '';
+    let fifthDigit = this.test.contactno ?this.test.contactno.substring(4,5) : '';
+    let sixthDigit = this.test.contactno ?this.test.contactno.substring(5,6): '';
+    let sevenDigit = this.test.contactno ?this.test.contactno.substring(6,7): '';
+    let eightDigit = this.test.contactno ?this.test.contactno.substring(7,8): '';
+    let nightDigit = this.test.contactno ?this.test.contactno.substring(8,9): '';
+    let tenDigit = this.test.contactno ?this.test.contactno.substring(9,10): '';
+    
+    if(this.applyTestForm.value.contactNo != "" && firstDigit == secondDigit && forthDigit == thirdDigit && fifthDigit == sixthDigit && sevenDigit == eightDigit && nightDigit == tenDigit ){
+      return true ;
+    }
+
+    return false ;
+  }
 }
