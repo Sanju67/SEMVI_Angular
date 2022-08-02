@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+  </head>
+  <body>
+   <div class="container">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Customer Details</th>
+            <th scope="col">Test Record</th>
+            <th scope="col">Payment Collection</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+                <div class="input-group">
+                    <select (change)="userSelection($event)" class="form-select" id="customerDetails" aria-label="Example select with button addon">
+                      <option selected>Choose...</option>
+                      <option value="1">All</option>
+                      
+                    </select>
+                    <button class="btn btn-outline-secondary" type="button" (click)="showAllUser()">Show Customer</button>
+                  </div>
+            </td>
+            <td>
+                <div class="input-group">
+                    <select class="form-select" id="testDetails" aria-label="Example select with button addon">
+                      <option selected>Choose...</option>
+                      <option value="1">Monthly</option>
+                      <option value="2">Last 6 month </option>
+                      <option value="3">One Year </option>
+                      <option value="3"> All Test Performed </option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="button">Show Test</button>
+                  </div>
+            </td>
+            <td>
+                <div class="input-group">
+                    <select class="form-select" id="paymentDetails" aria-label="Example select with button addon">
+                      <option selected>Choose...</option>
+                      <option value="1">Monthly Earned</option>
+                      <option value="2">Last 6 month Earning</option>
+                      <option value="3">One Year Earning</option>
+                      <option value="3">Total Earned</option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="button">Show Payment</button>
+                  </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+     
+      <h5 *ngIf="chooseValidUserOptionMessage" style="color: #dc143c;"> Choose valid option for displaying Customer Information.... </h5>
+      <h5 *ngIf="noUserFound" style="color: #dc143c;"> No Customer Information Found.... </h5>
+      <br><br>
+      <div class="col-sm-10">
+        <table class="table table-bordered table-hover table-sm" *ngIf="allPatientIsNotNull">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email ID</th>
+              <th scope="col">Contact Number</th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let patient of allPatient">
+            <tr>
+              <td scope="row">{{patient.firstName}}</td>
+              <td scope="row">{{patient.lastName}}</td>
+              <td scope="row">{{patient.email}}</td>
+              <td scope="row">{{patient.contactno}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+   </div>
+   
+   
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  </body>
+</html>

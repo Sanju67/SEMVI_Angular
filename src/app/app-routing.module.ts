@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { OrderComponent } from './order/order.component';
 import { RegisterComponent } from './register/register.component';
+import { ReportsComponent } from './reports/reports.component';
 import { TestPriceComponent } from './test-price/test-price.component';
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path : 'About-Us' , component : AboutUsComponent},
   { path : 'TestPrice' , component : TestPriceComponent},
   { path: 'order', component: OrderComponent },
+  { path : 'viewData' , component : ReportsComponent}
 ];
 
 @NgModule({
