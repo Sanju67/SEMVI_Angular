@@ -42,14 +42,14 @@
             </td>
             <td>
                 <div class="input-group">
-                    <select class="form-select" id="paymentDetails" aria-label="Example select with button addon">
+                    <select (change)="paymentSelection($event)" class="form-select" id="paymentDetails" aria-label="Example select with button addon">
                       <option selected>Choose...</option>
                       <option value="1">Monthly Earned</option>
                       <option value="2">Last 6 month Earning</option>
                       <option value="3">Current Year Earning</option>
-                      <option value="3">Total Earned</option>
+                      <option value="4">Total Earned</option>
                     </select>
-                    <button class="btn btn-outline-secondary" type="button">Show Payment</button>
+                    <button class="btn btn-outline-secondary" (click)="showPayment()" type="button">Show Payment</button>
                   </div>
             </td>
           </tr>
@@ -189,9 +189,16 @@
             </table>
         </div>
 
-
+        <!-- Payment Statement for All Records -->
+        <h4 style="color: #3683C6;" *ngIf="paymentOption == 1"> Current Month Earning is : Rs {{paymentRecordMonthly}} </h4>
+        <h4 style="color: #3683C6;" *ngIf="paymentOption == 2"> Last 6 Month Earning is : Rs {{paymentRecordSixMonth}} </h4>
+        <h4 style="color: #3683C6;" *ngIf="paymentOption == 3"> Current Year Earning is : Rs {{paymentRecordYearly}} </h4>
+        <h4 style="color: #3683C6;" *ngIf="paymentOption == 4"> Total Earning Earning is : Rs {{paymentRecordForAll}} </h4>
+        <h5 *ngIf="paymentOption=='Choose...' " style="color: #dc143c;"> Choose valid option for displaying Payment Information.... </h5>
+  
    </div>
    
+
    
 
 
